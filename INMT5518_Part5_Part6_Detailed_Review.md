@@ -1,292 +1,293 @@
 # INMT5518 Supply Chain Analytics
-# 专项深度复习与模拟题库：Part 5 & Part 6
+# Comprehensive Exam Review Guide: Part 5 & Part 6 (English-First Edition)
 
-> **适用范围**：期中闭卷考试（Midterm Quiz - Week 8）  
-> **考试形式**：闭卷（Closed Book）、单项选择题（MCQ, Single Correct Answer）、答错不倒扣分（No Negative Marks）  
-> **核心覆盖**：  
-> - **Part 5**：诊断性分析（Diagnostic Analytics）、相关性系数区间、假设检验（$H_0$ 与 $H_1$ 符号规则、P值判定）、正态性检验（偏度与峰度阈值）、参数检验 vs. 非参数检验全套矩阵、单因素方差分析（ANOVA Single Factor）（Week 5 课件精析）  
-> - **Part 6**：绩效监控与核心 KPI 体系（POM、CCC、IT 算法及算例）、服务链与服务水平协议（SLA）、服务化转型（Servitisation）、四次工业革命脉络、六大图表深度对比与仪表盘构建法则（Week 6 课件精析）
+> **Assessment Context**: Closed-Book Midterm Quiz (Week 8)  
+> **Format**: Multiple Choice Questions (MCQs), Single Correct Answer, No Negative Marking.  
+> **Instructional Design**: **English-First Architecture**. Academic definitions, statistical formulas, operational frameworks, and question stems are articulated in rigorous academic and business English (mirroring Dr. Mehdi Rajabi Asadabadi’s Week 5 & Week 6 lecture slides), accompanied by targeted Chinese annotations (【考点释义 / 核心精解】) for rapid mastery.
 
 ---
 
-# MODULE 1: 诊断性分析与假设检验体系 (Diagnostic Analytics & Statistical Testing)
+# SECTION 1: DIAGNOSTIC ANALYTICS & HYPOTHESIS TESTING (WEEK 5)
 
-## 1.1 诊断性分析的定位与触发场景 (Role & Triggers of Diagnostic Analytics)
+## 1.1 Nature, Positioning & Triggers of Diagnostic Analytics
 
-### 1. 核心定位与管理使命
-- **核心提问**：*What caused the variances? Why did it happen?*（偏差是什么原因造成的？为什么会发生？）
-- **行动路径**：
-  $$\mathbf{\text{Drill into the analytics (向下钻取发现)} \longrightarrow \text{Detect patterns (识别异常模式)} \longrightarrow \text{Determine relationships (寻找因果原因)}}$$
+### 1. Conceptual Definition & Core Objective
+- **Core Question**: *"What caused the variances? Why did it happen?"*
+- **Action Trajectory**:
+  $$\mathbf{\text{Drill into the analytics} \longrightarrow \text{Detect patterns} \longrightarrow \text{Determine relationships}}$$
+- **Analytical Value**: Diagnostic analytics bridges the gap between backward-looking **Descriptive Analytics** (*"What happened?"*) and forward-looking **Predictive Analytics** (*"What will happen?"*). It diagnoses underlying root causes and validates behavioral relationships.
 
-### 2. 诊断性分析的三大触发场景 (When do we need it?) ⭐
-1. **Verifying Claims（验证主张/断言）**：
-   - 当业务伙伴、供应商或管理层提出某项假设或断言（例如：“男性和女性员工的薪资存在显著差异”、“某供应商经过培训后绩效显著提升”），需要通过严谨数据检验断言是否属实。
-2. **Identifying Meaningful Relationships（发现有意义的业务关联）**：
-   - 寻找潜在变量间的规律以支撑决策（例如：“运输延迟率是否与供应商距离强相关？”、“折扣力度与库存缺货是否相关？”）。
-3. **Investigating Anomalies（调查突发数据异常）**：
-   - 数据模式或趋势出现突发骤变（Sudden changes in patterns）；
-   - 某些特定指标的观测值严重超出预期合理区间（Beyond expected values）。
+### 2. Three Operational Triggers for Diagnostic Analytics ⭐
+1. **Verifying Claims (验证商业假设与主张)**:
+   - When business partners, functional managers, or suppliers assert an operational claim (e.g., *"Male and female warehouse supervisors have significantly different hourly wages"*, or *"A new vendor safety certification significantly reduced packaging defect rates"*), diagnostic testing statistically verifies whether empirical evidence supports or refutes the claim.
+2. **Identifying Meaningful Relationships (挖掘深层业务关联)**:
+   - Uncovering underlying linkages between variables to inform strategic decision-making (e.g., examining whether freight transit delays strongly correlate with supplier geographic distance, or whether promotional price discounts correlate with warehouse stockouts).
+3. **Investigating Anomalies (调查突发数据异常)**:
+   - When operations encounter sudden unexpected shifts in business patterns (sudden changes in data patterns) or when recorded operational metrics fall outside expected historical boundaries (metrics beyond expected values).
 
 ---
 
-## 1.2 相关性分析 (Correlation Analysis) ⭐⭐⭐
+## 1.2 Correlation Analysis (Pearson $r$) ⭐⭐⭐
 
-相关系数（通常指 Pearson $r$）用于度量两个连续变量之间**线性关联的方向与强度**。取值范围为 $[-1.0, +1.0]$。
+Correlation analysis measures the **direction and strength of the linear relationship** between two continuous numerical variables. The correlation coefficient ($r$) ranges strictly between $-1.0$ and $+1.0$.
 
 ```
 [-1.0] ────────────── [-0.50] ──────── [-0.30] ────── [0] ────── [+0.30] ──────── [+0.50] ────────────── [+1.0]
-极强/完全负相关        强负相关         中度负相关      无相关       中度正相关         强正相关        极强/完全正相关
+Perfect Negative       Strong Negative   Moderate Neg   Zero     Moderate Pos      Strong Positive   Perfect Positive
 ```
 
-### 课件标准相关性区间判定表 (Official Lecture Correlation Thresholds)
-| 相关系数绝对值范围 ($|r|$) | 官方判定术语 (Official Classification) | 业务含义解释 (Business Meaning) |
+### Official Lecture Interpretation Thresholds (Slide 10)
+
+| Absolute Value Range ($|r|$) | Official Classification (Slide 10) | Operational & Mathematical Meaning |
 | :---: | :--- | :--- |
-| **接近 $\pm 1$ (Near $\pm 1$)** | **Perfect correlation（完全相关）** | 两个变量呈现近乎完美的直线对应关系；一变量增加，另一变量严格同向递增（正）或递减（负）。 |
-| **$\pm 0.50$ 到 $\pm 1.00$** | **Strong / High degree correlation（高度/强相关）** | 变量间存在显著且稳健的线性关联，可作为因果挖掘或预测建模的重要前置特征。 |
-| **$\pm 0.30$ 到 $\pm 0.49$** | **Medium / Moderate degree correlation（中度相关）** | 存在一定程度的伴随变动趋势，但伴随较多扰动噪音。 |
-| **低于 $\pm 0.29$ (Below $\pm 0.29$)** | **Small / Low degree correlation（低度/微弱相关）** | 线性关联极弱，实际业务中通常认为两变量相互独立或关联不显著。 |
+| **Near $\pm 1.00$** | **Perfect correlation** | Points align on a straight line; one variable moves in perfect mathematical lockstep with the other. |
+| **$\pm 0.50$ to $\pm 1.00$** | **High degree / Strong correlation** | Strong, robust linear co-movement between variables; serves as an essential candidate feature for predictive modeling. |
+| **$\pm 0.30$ to $\pm 0.49$** | **Moderate degree / Medium correlation** | Noticeable linear co-movement, accompanied by moderate stochastic dispersion/noise. |
+| **Below $\pm 0.29$** | **Small / Low degree correlation** | Weak or negligible linear relationship; variables are practically independent in operations. |
 
-> **关键提醒**：相关性不等于因果性（Correlation does not equal Causation），但相关性分析是诊断性分析中确定潜在因果候选集的第一步。
+> **Critical Axiom**: **"Correlation does NOT imply Causation."**  
+> *(相关性不等于因果性。相关性仅能证明两个变量存在伴随变动，不能直接断定前者是后者的原因，但它是筛选因果候选变量的第一步。)*
 
 ---
 
-## 1.3 假设检验基本原理 (Foundations of Hypothesis Testing) ⭐⭐⭐
+## 1.3 Foundations of Statistical Hypothesis Testing ⭐⭐⭐
 
-> “A hypothesis is an idea/claim that can be tested.”（假设是一个可以被检验的想法或主张）。
+> *"A hypothesis is an idea/claim that can be tested."* (Slide 17)
 
-### 1. 零假设 ($H_0$) vs. 备择假设 ($H_1$ 或 $H_a$) 符号严谨规则 ⭐
-考试中极易出现关于 $H_0$ 与 $H_1$ 符号搭配的陷阱题，请死记以下规则：
+### 1. Mathematical Sign Rules for $H_0$ and $H_1$ ⭐
+Formulating statistical hypotheses requires adherence to strict mathematical conventions:
 
-| 假设类型 | 学术定位 (Role in Research) | 允许使用的数学符号 (Allowed Signs) | 业务语境直觉 (Intuitive Meaning) |
+| Hypothesis Type | Academic & Operational Role | Allowed Mathematical Signs | Core Intuition & Business Framing |
 | :---: | :--- | :---: | :--- |
-| **$H_0$<br>(Null Hypothesis)** | **零假设 / 原假设**<br>代表“无差异”、“无效果”、“现状基准”。我们试图寻找证据去**拒绝（Reject）**它！ | $\mathbf{=}\ ,\ \mathbf{\ge}\ ,\ \mathbf{\le}$<br>*(必须包含等号！)* | “新旧培训没有差异”、“男女薪资相等”、“平均工时不大于40小时”。 |
-| **$H_1$ 或 $H_a$<br>(Alternative Hypothesis)** | **备择假设 / 研究假设**<br>代表研究者真正希望证明成立的**“受喜爱的研究主张（The claim that we like / pleasing）”**。 | $\mathbf{\neq}\ ,\ \mathbf{>}\ ,\ \mathbf{<}$<br>*(严禁包含等号！)* | “新培训显著提升了绩效”、“女性薪资高于男性”、“平均工时大于40小时”。 |
+| **$H_0$<br>(Null Hypothesis)** | **Status Quo / Baseline**<br>Represents "no difference", "no effect", or historical benchmark. **The hypothesis we seek to REJECT!** | $\mathbf{=}\ ,\ \mathbf{\ge}\ ,\ \mathbf{\le}$<br>*(MUST contain the equal sign!)* | "Training had no effect"; "Supplier defect rate is at or above 50 ppm"; "Salaries are equal between genders". |
+| **$H_1$ or $H_a$<br>(Alternative Hypothesis)** | **Research Claim / "The Claim We Like"**<br>Represents the researcher’s actual target proposition (Slide 17: *"The pleasing claim"*). | $\mathbf{\neq}\ ,\ \mathbf{>}\ ,\ \mathbf{<}$<br>*(STRICTLY FORBIDDEN from having an equal sign!)* | "Training significantly improved scores"; "Supplier defect rate is strictly less than 50 ppm"; "Salaries differ". |
 
-- **双尾检验（Two-tailed test）**：$H_0: \mu = 140,000$ vs. $H_1: \mu \neq 140,000$
-- **单尾检验（One-tailed test）**：$H_0: \mu \le 140,000$ vs. $H_1: \mu > 140,000$
+- **Two-Tailed Test (双尾检验)**: $H_0: \mu = \mu_0$ vs. $H_1: \mu \neq \mu_0$
+- **One-Tailed Test (单尾检验 - Lower Tail)**: $H_0: \mu \ge \mu_0$ vs. $H_1: \mu < \mu_0$
+- **One-Tailed Test (单尾检验 - Upper Tail)**: $H_0: \mu \le \mu_0$ vs. $H_1: \mu > \mu_0$
 
-### 2. P 值判定法则与统计学哲学 (The P-Value Decision Rule) ⭐⭐⭐
-> **PPT 核心哲学原话**：
-> *"**All we can do in hypothesis testing is to reject the null hypothesis.**"*
-> （在假设检验中，我们所能做的全部事情就是**拒绝零假设**；我们永远无法从数学上绝对“证实”备择假设，只能通过推翻零假设来间接支持备择假设）。
-
-- **P 值的概率本质**：
-  $$\mathbf{P\text{-value = The chance of your result being just a coincidence.}}$$
-  （P 值即：**当前样本所观察到的极端差异纯粹是由于随机抽样巧合所导致的概率**）。
-- **$\alpha = 0.05$（5% 显著性水平）的直观内涵**：
-  - 如果 $P < 0.05$，意味着“当前结果纯属巧合的概率不到 5%” $\implies$ 证据足够充分，我们有 95% 以上的置信度推翻现状！
-  - *课件原文解释*：若重复抽取 100 次独立样本，将有 95 次样本的结果支持拒绝零假设。
-- **决策红线（Decision Rule）**：
-  $$\boxed{\mathbf{P\text{-value} < 0.05 \implies \text{Reject } H_0\ (\text{拒绝零假设，接受备择假设 } H_1)}}$$
-  $$\boxed{\mathbf{P\text{-value} \ge 0.05 \implies \text{Fail to Reject } H_0\ (\text{无法拒绝零假设，证据不足})}}$$
+### 2. The P-Value Decision Rule & Statistical Philosophy ⭐⭐⭐
+> **Slide 24 & 39 Definitive Doctrines**:
+> 1. *"**P-value is the chance of your result being just a coincidence.**"*
+> 2. *"**All we can do in hypothesis testing is to reject the null hypothesis.**"*
+- In classical frequentist hypothesis testing, one **CANNOT mathematically "prove" the alternative hypothesis**; one can only gather sufficient sample evidence to **reject the null hypothesis**, thereby leaving the alternative hypothesis as the supported explanation.
+- **Decision Benchmark ($\alpha = 0.05$, 5% Significance Level)**:
+  - If $P\text{-value} < 0.05 \implies$ **Reject $H_0$** (Statistically significant evidence exists; coincidence chance is under 5%).
+  - If $P\text{-value} \ge 0.05 \implies$ **Fail to Reject $H_0$** (Insufficient evidence to overturn the status quo).
+  - *Exam Pitfall*: Never state *"Accept $H_0$"* or *"Proved $H_0$ is true"*. The correct academic terminology is **"Fail to reject $H_0$"**.
 
 ---
 
-## 1.4 正态性检验：偏度与峰度 (Normality Check: Skewness & Kurtosis) ⭐⭐
+## 1.4 Normality Verification: Skewness & Kurtosis Thresholds ⭐⭐
 
-在开展均值检验之前，必须验证数据是否服从**正态分布（Normal Distribution）**。若数据偏离正态，则所有基于正态分布假设的经典参数检验（如 t-Test、ANOVA）将全部失效，必须强制改用非参数检验！
+Before applying parametric mean tests, analysts must confirm whether sample data follows a **Normal Distribution**. Violations of normality invalidate classical parametric procedures and require switching to non-parametric methods.
 
 ```
-     正偏态 (Right/Positive Skew)           正态分布 (Normal)            负偏态 (Left/Negative Skew)
-           长尾在右边                         完美钟形对称                    长尾在左边
-          Skewness > 0                       Skewness = 0                   Skewness < 0
+       [ Positive / Right Skew ]                 [ Normal Distribution ]                [ Negative / Left Skew ]
+        Tail extends to the RIGHT                    Symmetrical Bell                    Tail extends to the LEFT
+             Skewness > 0                              Skewness = 0                            Skewness < 0
 ```
 
-### 1. 偏度 (Skewness) —— 度量数据分布的不对称性
-- **Good（理想正态区间）**：位于 **$[-1.0, +1.0]$** 之间。
-- **Acceptable（可接受正态区间）**：位于 **$[-2.0, +2.0]$** 之间。
-- **超限判定**：偏度严重偏离 0（即 $|Skewness| > 2$），判定为严重偏态，**严禁使用参数检验，必须使用非参数检验**。
-
-### 2. 峰度 (Kurtosis) —— 度量数据分布顶峰的陡峭程度与尾部厚度
-- **Good（理想正态区间）**：位于 **$[-2.0, +2.0]$** 之间。
-- **Acceptable（可接受正态区间）**：位于 **$[-3.0, +3.0]$** 之间。
-- **超限判定**：峰度超出 $[-3.0, +3.0]$ 范围，表明存在极端厚尾或异常尖峰，**强制使用非参数检验**。
-
-> **Excel 实操路径**：`Data` $\rightarrow$ `Data Analysis` $\rightarrow$ `Descriptive Statistics`（勾选 `Summary statistics`，输出结果即包含 Skewness 与 Kurtosis）。
+### Official Threshold Guidelines (Slides 28 & 29)
+1. **Skewness (偏度 - Asymmetry of Distribution)**:
+   - **Good (Ideal Normal)**: Within **$[-1.0, +1.0]$**
+   - **Acceptable Normal Range**: Within **$[-2.0, +2.0]$**
+   - *Violation Rule*: If $|Skewness| > 2.0$, data is severely skewed $\implies$ **Parametric tests are invalid; use Non-Parametric tests**.
+2. **Kurtosis (峰度 - Peakedness & Tail Heaviness)**:
+   - **Good (Ideal Normal)**: Within **$[-2.0, +2.0]$**
+   - **Acceptable Normal Range**: Within **$[-3.0, +3.0]$**
+   - *Violation Rule*: If $|Kurtosis| > 3.0$, data exhibits heavy outliers or excessive peak $\implies$ **Use Non-Parametric tests**.
 
 ---
 
-## 1.5 参数检验 vs. 非参数检验全套矩阵 (Parametric vs. Non-Parametric Tests Matrix) ⭐⭐⭐
+## 1.5 Parametric vs. Non-Parametric Tests Selection Matrix ⭐⭐⭐
 
-> **本表是 Week 5 课件最核心、期中考试必考 2-3 题的超级重点矩阵！请务必精确记忆每一种业务场景对应的参数与非参数工具名称。**
+> **Super High-Yield Exam Matrix (Slides 26 & 32)**: Direct matching between operational scenarios and their appropriate statistical test.
 
-| 业务分析场景 (Analytical Scenario) | 参数检验方法 (Parametric Test)<br>*[数据服从正态分布时使用]* | 非参数检验方法 (Non-Parametric Test)<br>*[数据偏态或为序数等级数据时使用]* | 课件经典案例与变量类型 (Lecture Benchmark Example) |
+| Analytical Scenario | Parametric Test<br>*(Normal Distribution Holds)* | Non-Parametric Test<br>*(Normality Violated / Ordinal Data)* | Benchmark Course Example |
 | :--- | :---: | :---: | :--- |
-| **1. 比较两个相关样本<br>(Comparing 2 related samples)** | **Paired t-Test<br>(配对样本 t 检验)** | **Wilcoxon signed rank test<br>(威尔科克森符号秩检验)** | 评估同一组受试对象在接受某项干预**前与后**的表现（*Performance of a group before & after training*）。 |
-| **2. 比较两个独立样本与某变量<br>(Comparing 2 unrelated samples vs. a variable)** | **Two-Sample t-Test<br>(两独立样本 t 检验)** | **Mann-Whitney U-test<br>(曼-惠特尼 U 检验)** | 比较两类不相关群体在某指标上的差异，例如：**性别（男/女） vs. 工作满意度李克特量表得分（Likert Scale）**。 |
-| **3. 比较三组及以上相关样本，单变量<br>(Comparing 3+ related samples with 1 variable)** | **One-Way Repeated Measures ANOVA<br>(重复测量方差分析)** | **Friedman test<br>(弗里德曼检验)** | 同一群体在三个不同职能阶段的表现，例如：**员工在公司的岗位角色 vs. 薪资等级（低、中、高）**。 |
-| **4. 比较三组及以上独立样本<br>(Comparing 3+ samples with unrelated variables)** | **One-Way ANOVA<br>(单因素方差分析)** | **Kruskal-Wallis H-test<br>(克鲁斯卡尔-沃利斯 H 检验)** | 比较不同独立项目组员工的表现，例如：**被分配的不同研发项目 vs. 员工工作满意度等级**。 |
-| **5. 比较不相关的分类变量<br>(Comparing unrelated categories)** | **None<br>(无对应经典参数检验)** | **Chi-square test ($\chi^2$)<br>(卡方独立性检验)** | 纯定性类别属性交叉，例如：**是否获得公司年度优秀奖励（是/否） vs. 绩效考核档次（高/低）**。 |
-| **6. 比较两个独立变量的等级/秩次<br>(Comparing 2 independent ranks)** | **Pearson correlation<br>(皮尔逊积差相关系数)** | **Spearman rank-order test<br>(斯皮尔曼等级相关检验)** | 连续数值与等级序列的关系，例如：**员工实际薪资金额 vs. 工作满意度李克特评分**。 |
+| **1. Comparing 2 related samples<br>(比较两个相关样本)** | **Paired t-Test** | **Wilcoxon signed rank test** | Testing operator performance **before and after** a training workshop. |
+| **2. Comparing 2 unrelated samples vs. a variable<br>(比较两个独立样本与变量)** | **Two-Sample t-Test** | **Mann-Whitney U-test** | Comparing **Gender (Male/Female)** against **Job Satisfaction on a 1-5 Likert scale**. |
+| **3. Comparing 3+ related samples with 1 variable<br>(比较三组及以上相关样本)** | **One-Way Repeated Measures ANOVA** | **Friedman test** | Employee performance across three career stages: **Role vs. Salary Level (Low, Medium, High)**. |
+| **4. Comparing 3+ samples with unrelated variables<br>(比较三组及以上独立样本)** | **One-Way ANOVA** | **Kruskal-Wallis H-test** | Comparing worker productivity across independent shifts: **Assigned Project Team vs. Satisfaction Rating**. |
+| **5. Comparing unrelated categories<br>(比较不相关的分类变量)** | *None (No standard parametric test)* | **Chi-square test ($\chi^2$)** | Pure categorical cross-tabulation: **Annual Bonus Awarded (Yes/No) vs. Performance Tier (High/Low)**. |
+| **6. Comparing 2 independent ranks<br>(比较两组独立变量的等级/秩次)** | **Pearson correlation ($r$)** | **Spearman rank-order test ($\rho$)** | Association between a continuous metric and an ordinal ranking: **Actual Dollar Salary vs. Satisfaction Rank**. |
 
 ---
 
-## 1.6 单因素方差分析 (ANOVA Single Factor) ⭐⭐
+## 1.6 One-Way Analysis of Variance (ANOVA Single Factor) ⭐⭐
 
-### 1. 为什么有了 t-Test 还需要 ANOVA？
-- **t-Test 的局限**：t-Test 严格限制在**只能比较两个组（Two groups）**之间均值的差异。
-- **ANOVA 的使命**：当需要比较**三组或三组以上（More than two testing groups）**的数据均值是否存在显著差异时，必须使用方差分析（Analysis of Variance - ANOVA）。
-  - *为什么不能多次两两做 t-Test？*：多次两两检验会急剧放大第一类错误率（Type I error inflation）。
+### 1. Why Use ANOVA Instead of Multiple Two-Sample t-Tests?
+- A two-sample t-Test is restricted to comparing **exactly two groups**.
+- When evaluating **three or more groups (3+ groups)**, conducting multiple pairwise t-tests causes **Type I error inflation** ($\alpha$ risk compounds across multiple comparisons). ANOVA controls the family-wise error rate by testing all group means simultaneously in an omnibus test.
 
-### 2. 为什么课件中选择“Single Factor”（单因素）？
-- **“Single Factor”的定义**：指的是分析模型中**只存在一个独立分类自变量（Only ONE independent variable / factor）**，但该因子包含 3 个或更多水平（Levels/Treatments）。
-- **课件三大经典用例**：
-  1. *医学/心理学案例*：一组精神病患者分别接受 3 种不同的疗法（心理咨询 Counseling、药物治疗 Medication、生物反馈 Biofeedback），检验哪种疗法效果更好。
-  2. *工业制造案例*：某灯泡制造商拥有 3 种不同的生产工艺流程（Process 1, 2, 3），检验哪种制造流程产出的灯泡寿命更长。
-  3. *高等教育案例*：来自不同大学学院（Colleges A, B, C）的学生参加统考，检验学院之间学术表现是否存在显著优劣。
+### 2. Meaning of "Single Factor" (Slide 46) ⭐
+- **"Single Factor" Definition**: The statistical model evaluates **only ONE independent categorical variable (Factor)**, even though that factor comprises three or more treatment groups or levels.
+- **Lecture Benchmark Examples**:
+  1. *Medical/Clinical*: A group of patients assigned to 3 distinct therapies (Counseling, Medication, Biofeedback).
+  2. *Manufacturing*: A light bulb factory evaluating 3 different production processes (Process 1, Process 2, Process 3) to test average bulb lifespan.
+  3. *Education*: Students from 3 different university colleges (College A, B, C) taking a unified standardized exam.
 
-### 3. 统计假设与输出解读
-- **假设构建**：
-  - $H_0$: $\mu_1 = \mu_2 = \mu_3 = \dots = \mu_k$（所有组总体均值完全相等，各组表现无实质差异）
-  - $H_1$: 并非所有组的均值都相等（At least one group differs，至少有一组表现不同）
-- **判定核心指标**：查看 Excel ANOVA 输出表格中的 **Significance F**（等价于模型总 P 值）。
-  $$\mathbf{\text{Significance } F < 0.05 \implies \text{Reject } H_0\ (\text{组间存在显著差异})}$$
-
----
-
-# MODULE 2: 绩效监控、KPI、服务链与数据可视化 (Performance, KPIs & Visualisation)
-
-## 2.1 供应链绩效监控的四大驱动价值 (Why Monitor SC Performance?)
-
-企业之所以投入巨资建设绩效监控体系，核心在于驱动以下四大管理收益：
-1. **Cost Reduction（成本削减）**：精准定位全链条中的冗余环节、瓶颈、低效作业与资源浪费。
-2. **Customer Satisfaction（客户满意度提升）**：实时追踪库存货源充足率、订单交付准时率（On-time delivery）与合格交付质量。
-3. **Risk Mitigation（风险化解）**：通过前置预警指标，提前识别供应商交付断裂或干线中断风险。
-4. **Supplier Relationships（深化供应商战略伙伴关系）**：以客观量化数据为沟通桥梁，提升协同信任，建立长期战略共赢机制。
+### 3. Hypotheses & Significance F Output
+- **Hypotheses**:
+  - $H_0: \mu_1 = \mu_2 = \mu_3 = \dots = \mu_k$ (All group population means are equal; no treatment effect).
+  - $H_1$: At least one group mean is different from the others (Not all means are equal).
+- **Key Decision Metric**: Inspect **Significance F** in the Excel ANOVA output table (equivalent to the model's overall P-value):
+  $$\mathbf{\text{Significance } F < 0.05 \implies \text{Reject } H_0\ (\text{Statistically significant difference exists between groups})}$$
 
 ---
 
-## 2.2 核心 KPI 计算与深度解析 (Core SCM Key Performance Indicators) ⭐⭐⭐
+# SECTION 2: SUPPLY CHAIN PERFORMANCE, KPIS & DATA VISUALISATION (WEEK 6)
 
-> 考试必出 1-2 道计算题！请熟练掌握公式变形与各个参数的单位。
+## 2.1 The Four Strategic Drivers of Supply Chain Performance Monitoring
 
-### 1. 完美订单满足率 (Perfect Order Measurement - POM) ⭐
-度量订单履约全流程零缺陷交付的最高标准指标。必须同时满足**完全交付、准时交付、无货损、发票无误**四大条件：
+1. **Cost Reduction (成本削减)**: Pinpoints operational redundancies, process bottlenecks, excessive handling, and non-value-adding waste.
+2. **Customer Satisfaction (客户满意度提升)**: Tracks order fulfillment accuracy, on-time delivery rates, and defect-free delivery performance.
+3. **Risk Mitigation (风险化解)**: Provides leading indicators to anticipate supplier stockouts, transportation disruptions, or geopolitical supply chokepoints.
+4. **Supplier Relationships (深化战略伙伴关系)**: Uses objective quantitative metrics to build transparency, mutual trust, and long-term collaborative contracts.
+
+---
+
+## 2.2 Core SCM Key Performance Indicators (KPIs) ⭐⭐⭐
+
+### 1. Perfect Order Measurement (POM) ⭐
+Measures overall supply chain delivery precision. A delivery is "perfect" only if all four operational standards are met without error:
 $$\mathbf{POM = (\% Complete) \times (\% On\text{-}time) \times (\% Damage\text{-}free) \times (\% Correctly\ invoiced)}$$
-> **注意**：四个分项指标采用**乘法相乘**，而不是加权平均！如果某企业四项指标分别为 95%、95%、95%、95%，则 $POM = 0.95^4 \approx 81.45\%$。
+> **Mathematical Trait**: Must be calculated via **multiplication**, NOT an arithmetic average! If each metric is $95\%$, $POM = 0.95 \times 0.95 \times 0.95 \times 0.95 \approx 81.45\%$.
 
-### 2. 现金周转周期 (Cash-to-Cash Cycle Time - CCC) ⭐
-衡量企业从支付原材料采购款到最终从客户手中收回现金所经历的时间跨度（天数）。
+### 2. Cash-to-Cash Cycle Time (CCC) ⭐
+The duration (in days) required for a company to convert cash outflows for raw materials into cash inflows from sales:
 $$\mathbf{CCC = \text{Days Inventory Outstanding (DIO)} + \text{Days Sales Outstanding (DSO)} - \text{Days Payable Outstanding (DPO)}}$$
-$$\mathbf{CCC = \text{存货周转天数} + \text{应收账款周转天数} - \text{应付账款周转天数}}$$
-- **管理准则**：**CCC 天数越短越好（甚至可以为负数，如 Dell 和 Amazon）**，代表企业运营资本占用极少，营运资金流动性极强。
+- **Managerial Goal**: **The shorter the CCC, the better**. Lean innovators like Dell and Amazon maintain negative CCCs, effectively operating on supplier-financed working capital.
 
-### 3. 库存周转率 (Inventory Turnover - IT) ⭐⭐⭐（高频计算题）
-度量库存运营效率的核心指标，代表一年中库存被全部售出并更新换代的频次。
-$$\mathbf{Inventory\ Turnover = \frac{Cost\ of\ Goods\ Sold\ (COGS)}{Value\ of\ Average\ Inventory} = \frac{\text{全期销货成本}}{\text{平均持有库存价值}}}$$
-- **管理准则**：**周转率数值越高越好（The higher the ratio, the better）**，表明相同销售规模下占压的库存资金越少。
-- **课件经典真题演练 (The YouRace Company Case)**：
-  > *题目背景*：YouRace 公司制造赛车。2024 年，其销售汽车的总成本（COGS）为 \$3,000,000，全年中平均库存持有价值为 \$250,000。2025 年底，公司推行 JIT（准时制）以改善库存绩效。2025 年其业务扩张，销售汽车成本增至 \$4,500,000，而平均库存仅增至 \$300,000。  
-  > *计算求解*：
-  > - **2024 年库存周转率** $= \frac{3,000,000}{250,000} = \mathbf{12}$
-  > - **2025 年库存周转率** $= \frac{4,500,000}{300,000} = \mathbf{15}$
-  > - *结论*：周转率由 12 提升至 15，表明在实施 JIT 原则后，公司的库存周转效率获得了实质性飞跃！
+### 3. Inventory Turnover (IT) ⭐⭐⭐ (High-Yield Problem)
+Measures the velocity at which inventory is sold and replaced over a year:
+$$\mathbf{Inventory\ Turnover = \frac{\text{Cost of Goods Sold (COGS)}}{\text{Value of Average Inventory}}}$$
+- **Managerial Goal**: **The higher the turnover ratio, the better**, indicating efficient inventory utilization and lower capital lockup.
+- **The YouRace Company Benchmark Case (Slide 11)**:
+  - *2024 Baseline*: $\text{COGS} = \$3,000,000$; $\text{Average Inventory} = \$250,000$.
+    $$\text{Inventory Turnover (2024)} = \frac{\$3,000,000}{\$250,000} = \mathbf{12}$$
+  - *2025 Post-JIT Implementation*: Firm adopts Just-in-Time principles. Business expands to $\text{COGS} = \$4,500,000$, while average inventory rises marginally to $\$300,000$.
+    $$\text{Inventory Turnover (2025)} = \frac{\$4,500,000}{\$300,000} = \mathbf{15}$$
+  - *Operational Takeaway*: IT increased from 12 to 15, confirming substantial improvements in inventory velocity and working capital efficiency.
 
-### 4. 订货提前期与单件运费 (Lead Time & Freight Cost per Unit)
-- **Lead Time（提前期）**：从客户正式发出采购订单到最终验收收货的总时间（$\text{Time of Order Placement to Receipt}$）。越短代表响应越快。
-- **Freight Cost per Unit Shipped（单件发运运费）**：
-  $$\mathbf{Freight\ Cost\ per\ Unit = \frac{Total\ Freight\ Costs}{Total\ Units\ Shipped} = \frac{\text{总物流运费开支}}{\text{实际发运总件数}}}$$
-
----
-
-## 2.3 服务供应链、服务化与服务水平协议 (Service Chains, Servitisation & SLA) ⭐⭐
-
-### 1. 制造供应链 vs. 服务供应链 (Supply Chains vs. Service Chains)
-- 传统供应链管理教材多局限于制造与有形实体流动。现代经济已全面向**服务型经济（Service Economies）**演进。
-- **服务供应链的核心特征**：生产与消费同时发生（Simultaneous production and consumption）、不可储存性（Non-storable）、更依赖人力技能与服务响应。
-
-### 2. 制造业服务化转型 (Servitisation by Manufacturers) ⭐
-- **定义**：现代制造企业不再仅仅交付冰冷的有形产品，而是围绕产品打包输出全生命周期的高附加值服务（Finance packages, Extended warranties, Remote condition monitoring, Repair services）。
-- **课件顶级行业案例**：
-  - **Rolls-Royce（劳斯莱斯航空发动机）**：其公司总营业收入中，有**高达约 50% 来源于航空动力服务（Power-by-the-Hour 飞行小时付费维保合同）**，而非一次性发动机硬件销售！
-  - *延伸案例*：各大车企提供汽车金融分期、延保服务、重卡远程车联网监控等。
-
-### 3. 服务水平协议 (Service Level Agreement - SLA)
-- **定义**：企业与外部服务提供商签订的法律级契约，明确界定服务质量、可用性、各方权责以及未履约时的违约惩罚条款（Quality, availability, responsibilities, and penalties）。
-- **两类场景的典型 SLA 考核指标对比**：
-  | 业务服务领域 | 核心 SLA 考核衡量指标 (Key SLA Metrics) |
-  | :--- | :--- |
-  | **Call Centre / IT 运营外包** | • **Availability Time**（系统可用性时间比例，如 99.9%）；<br>• **Response Time**（电话接入/工单响应响应时长）；<br>• **Resolution Time**（故障最终修复解决时长）。 |
-  | **Logistics & Transportation 物流外包** | • **Delivery Time**（承诺送达时限）；<br>• **Allowed Damage Rate**（允许货物破损残损率上限）；<br>• **Penalty for delays/damages**（延误交货与货物破损赔偿罚则）。 |
+### 4. Lead Time & Freight Cost per Unit
+- **Lead Time (提前期)**: Total elapsed time from purchase order placement until final goods receipt and acceptance ($\text{Time of Order Placement to Receipt}$).
+- **Freight Cost per Unit Shipped (单件发运成本)**:
+  $$\mathbf{Freight\ Cost\ per\ Unit = \frac{\text{Total Freight Incurred}}{\text{Total Units Shipped}}}$$
 
 ---
 
-## 2.4 四次工业革命历史进程 (The Four Industrial Revolutions Context)
+## 2.3 Service Supply Chains, Servitisation & Service Level Agreements (SLA) ⭐⭐
 
-| 发展阶段 | 爆发时间与发源 | 标志性核心驱动技术 (Key Technologies) | 经济组织形态变革 (Economic Transformation) |
+### 1. Service Chains vs. Traditional Manufacturing Chains
+- **Distinct Characteristics**: Simultaneous production and consumption, non-storability (intangibility), and intensive human interaction.
+
+### 2. Servitisation by Manufacturers (制造业服务化) ⭐
+- **Definition**: Industrial manufacturers shifting from selling standalone physical hardware to bundling comprehensive, life-cycle support services (e.g., equipment financing, preventive maintenance, IoT telemetry monitoring, repair contracts).
+- **Flagship Lecture Benchmark Case (Slide 14)**:
+  - **Rolls-Royce**: Generates **approximately 50% of its corporate revenue from aviation services** via its "Power-by-the-Hour" engine maintenance contracts, rather than one-time jet engine hardware sales.
+
+### 3. Service Level Agreements (SLAs) & Standard Metrics (Slide 18)
+- **Definition**: A legally binding contract between a client and an external service provider detailing service performance standards, availability levels, and contractual penalties for breaches.
+
+| Service Sector | Core SLA Contract Performance Metrics |
+| :--- | :--- |
+| **Call Centre / IT Outsourcing** | • **Availability Time** (system uptime, e.g., 99.9%);<br>• **Response Time** (time to answer/acknowledge tickets);<br>• **Resolution Time** (time to resolve technical issues). |
+| **Logistics & Freight Services** | • **Delivery Time** (guaranteed transit window);<br>• **Allowed Damage Rate** (contractual ceiling on damaged cargo);<br>• **Penalty for Delays/Damages** (financial compensation formulas). |
+
+---
+
+## 2.4 The Historical Trajectory of Four Industrial Revolutions (Slide 13)
+
+| Revolution | Approximate Era | Foundational Technologies | Structural Economic Impact |
 | :---: | :---: | :--- | :--- |
-| **First (第一次)** | $\approx 1750 – 1850$<br>英国率先发起 | 蒸汽机（Steam engines）、煤炭开采、机械化纺织机、生铁冶炼、铁路运输。 | 从农业与手工作坊向**工厂机械化大生产**转轨（Handcraft $\rightarrow$ Machine production）。 |
-| **Second (第二次)** | $\approx 1870 – 1914$<br>“技术革命” | 炼钢技术、**电力广泛应用（Electricity）**、石油化工、电报/电话通信、内燃机。 | 崛起现代汽车制造与大型化学工业；确立**流水线大规模制造（Mass production）**。 |
-| **Third (第三次)** | $\approx 1970\text{s}$ 以后<br>“数字革命” | 计算机（Computers）、微电子芯片、现代通信网络、互联网（Internet）。 | 从机电物理系统转向**自动化与数字化信息处理（Digital automation）**。 |
-| **Fourth (第四次)** | **当代 (Today)**<br>工业 4.0 | **人工智能（AI）**、高级机器人、物联网（IoT）、3D 打印增材制造、合成生物学。 | 物理世界、数字世界与生物世界的深度融合互联（Blurring physical, digital & biological）。 |
+| **First** | $\approx 1750 – 1850$ | Steam engine, coal power, mechanical weaving looms, iron smelting, railroads. | Shift from agrarian handcraft to **mechanized factory production**. |
+| **Second** | $\approx 1870 – 1914$<br>*(Technological Revolution)* | Modern steel production, **widespread electricity**, petroleum, telephone, telegraph, internal combustion engine. | Rise of heavy chemicals and auto industries; birth of **mass production assembly lines**. |
+| **Third** | $\approx 1970\text{s}$ onward<br>*(Digital Revolution)* | Microprocessors, mainframe computers, personal computing, fiber optics, the Internet. | Shift from mechanical/analog systems to **digital automation and IT data routing**. |
+| **Fourth** | **Contemporary Era**<br>*(Industry 4.0)* | **Artificial Intelligence (AI)**, advanced robotics, IoT, additive manufacturing (3D printing), synthetic biology. | **Blurring the boundaries between physical, digital, and biological spheres**. |
 
 ---
 
-## 2.5 六大图表类型全景对比与选型指南 (Chart Types Comprehensive Guide) ⭐⭐⭐
+## 2.5 Comprehensive Guide to the Six Core Chart Types ⭐⭐⭐
 
-> 考试极常以具体业务情境出题，要求考生挑选“最适宜的可视化图表类型”。
+> **Critical Exam Topic**: Multiple exam questions present operational scenarios and require identifying the optimal visualization tool.
 
-| 图表类型 (Chart Type) | 最适用业务场景 (Best Used For) | 核心优势 (Key Advantages) | 局限性与缺点 (Disadvantages / Pitfalls) |
+```
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                           The Six Core Visualizations                            │
+│                                                                                  │
+│   [ Column / Bar ]          [ Line Chart ]             [ Pie / Donut ]           │
+│   Discrete categories       Changes over continuous    Proportions of a whole    │
+│   comparison                time                       (Keep categories <= 5-7)  │
+│                                                                                  │
+│   [ Scatter Plot ]          [ Bubble Graph ]           [ Radar / Spider Chart ]  │
+│   Correlation between two   Three numerical dimensions Multi-criteria profiling  │
+│   continuous variables      (Cost, Value, Risk)        (Area = Overall value)    │
+└──────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Comparative Selection Matrix for Chart Types (Slides 31–35)
+
+| Chart Type | Primary Analytical Use | Key Operational Advantages | Inherent Limitations & Drawbacks |
 | :--- | :--- | :--- | :--- |
-| **Column / Bar Chart<br>(柱状图 / 条形图)** | 比较离散分类之间的独立数值大小差异（Comparing separate values）。 | 直观展现大批量数据的对比；比纯文字表格更能清晰凸显各类别间的相对高低差距。 | 难以表达随时间变化的连续微观轨迹。 |
-| **Line Chart<br>(折线图 / 时间序列图)** | 展示某一指标随**时间推移（Changes over time）**的发展趋势与演变规律。 | 最直观展示时序趋势与多组时序数据的交叉走势；能极其敏锐地暴露异常突变数据点。 | 仅适合有连续逻辑顺序的横轴（如日期、月份、工步）。 |
-| **Pie Chart / Donut<br>(饼图 / 环形图)** | 展示各个分类占**整体（Whole）**的百分比结构分布（Proportions of a whole）。 | 视觉上对“整体与局部”的比例切分极其直观；容易标注百分比份额。 | **分类项不能过多**（超过 5–7 项将无法辨识）；无法表达负数或时间动态演进。 |
-| **Scatter Plot<br>(散点图)** | 探究与展示**两个连续数值变量之间的相关关系（Correlation）**（$X$ 轴独立变量，$Y$ 轴依变量）。 | 清晰展示正相关、负相关、线性与非线性规律；暴露离群孤立异常值（Outliers）；支持插值与外推。 | **无法对大量数据点逐一标记数据标签**；不能展示两个以上的维度变量。 |
-| **Bubble Graph<br>(气泡图)** ⭐ | 同时展示**三个数值维度（Three numeric dimensions）**的数据对象（$X$ 轴、$Y$ 轴、气泡面积大小）。 | **无需绘制复杂的 3D 图表即可表达三维关系**！商业中常用于**投资方案对比（成本 Cost vs. 价值 Value vs. 风险 Risk）**。 | 气泡面积难以精准估读具体数值；圆圈重叠时极难辨认，不适合超大数据量。 |
-| **Radar / Spider Chart<br>(雷达图 / 蜘蛛网图)** ⭐ | 比较不同组织、供应商或候选方案在**多个评估维度/指标（More than 2 or 3 values）**上的综合表现。 | **覆盖面积越大，代表综合价值越高**！一目了然看清某对象在多项指标上的均衡性或短板（如供应商各维度雷达评级）。 | **不能同时对比超过 2–3 个对象**，否则线条杂乱难以分辨；轴过多时可读性显著下降。 |
+| **Column / Bar Chart** | Comparing discrete, independent categories or groups. | Clear visual contrast across large category datasets; far superior to raw tabular text. | Fails to show continuous temporal evolution. |
+| **Line Chart** | Displaying metrics across **continuous time (Changes over time / Trends)**. | Highlights temporal trends and trendline intersections; quickly exposes abrupt anomaly dips/spikes. | Requires a logically ordered horizontal axis (e.g., sequential dates, months, process steps). |
+| **Pie / Donut Chart** | Displaying component **proportions of a whole (Percentages)**. | Instantly conveys proportional breakdown of a single total sum. | **Cannot exceed 5–7 slices**; cannot display negative numbers or track temporal trends. |
+| **Scatter Plot** | Assessing the **linear or non-linear correlation** between two continuous variables ($X$ and $Y$). | Maps positive/negative correlation patterns; highlights isolated **data outliers**; supports trendlines. | Cannot label individual data points easily; limited to strictly two continuous dimensions. |
+| **Bubble Graph** ⭐ | Displaying relationships across **three numerical dimensions** ($X$-axis, $Y$-axis, bubble size). | **Visualizes 3D data in a flat 2D plane without complex 3D charts**. Standard business tool for comparing investment options across **Cost, Value, and Risk**. | Bubble areas are difficult to read with precision; overlapping bubbles create clutter. |
+| **Radar / Spider Chart** ⭐ | Comparing performance across **multiple evaluation criteria (more than 2 or 3 metrics)** simultaneously. | **The greater the area covered by the polygon, the greater the overall performance value**. Evaluates multi-dimensional balance. | Cannot cleanly display more than 2–3 entities simultaneously due to line clutter. |
 
 ---
 
-## 2.6 数据可视化原则与仪表盘架构 (Visualisation Principles & Dashboarding)
+## 2.6 Visualisation Principles & Dashboarding Architecture
 
-### 1. 优秀可视化的四大核心特质 (Data Visualisation Principles)
-1. **Informative（信息性）**：准确无误地向决策者传达其所需的核心业务情报。
-2. **Efficient（高效性）**：设计简洁凝练，杜绝歧义，让读者在数秒内看懂结论。
-3. **Appealing（吸引力）**：视觉排版得体美观，能抓住管理层的注意力焦点。
-4. **Interactive & Predictive（交互与预测性 - 可选高级特性）**：提供切片器和筛选器，支持动态情景模拟。
+### 1. Four Foundational Principles of Visualisation (Slide 26)
+1. **Informative**: Delivers precise, actionable intelligence required for executive decision-making.
+2. **Efficient**: Presents content cleanly and intuitively, minimizing cognitive friction and ambiguity.
+3. **Appealing**: Uses balanced graphic design, typography, and color to hold executive attention.
+4. **Interactive & Predictive**: Incorporates slicers, filters, and dynamic "what-if" scenario modeling.
 
-### 2. 图表 vs. 仪表盘 (Chart vs. Dashboard) ⭐
-- **Chart（图表）**：展示单一特定指标的信息维度，相当于**“故事中的某一个独立章节”（A chapter of a story）**。
-- **Dashboard（仪表盘）**：
-  - 将多张相互关联的图表与核心 KPI 集中整合在**单块屏幕（A single screen）**上；
-  - 汇聚异构数据源，**“各章节融会贯通，直观讲述一个完整的业务故事”（Chapters come together to tell a story）**；
-  - **核心特性**：可定制（Customisable）、可交互（Interactive）、实时监控（Real-time）、全链整合（All-in-one place）。
+### 2. Chart vs. Dashboard: The Storytelling Distinction (Slide 36) ⭐
+- **Chart / Graph**: The visual representation of a single specific data metric $\implies$ **"A single chapter of a story"**.
+- **Dashboard**: A unified visual console consolidating multiple interconnected charts and KPIs on a **single screen** $\implies$ **"All chapters coming together to tell a complete business story at a glance"**.
+  - *Key Characteristics*: Customizable, interactive, real-time telemetry, consolidated single-screen layout.
 
 ---
 
-# MODULE 3: 核心考点陷阱与速记口诀 (Exam Traps & Quick Hacks)
+# SECTION 3: EXAM PITFALLS & RAPID RECALL (HIGH-PROBABILITY TRAPS)
 
-1. **假设检验符号禁忌**：
-   - 只要看到备择假设 $H_1$ 或 $H_a$ 包含等号（$=$、$\le$、$\ge$） $\rightarrow$ **100% 错误选项，秒杀排除**！
-   - 零假设 $H_0$ 必须包含等号（$=$、$\le$、$\ge$）。
-2. **P 值拒绝法则记忆法**：
-   - **“小概率事件发生了，推翻原假设”**：$P < 0.05 \implies$ **Reject $H_0$**。
-   - $P \ge 0.05 \implies$ **Fail to Reject $H_0$**（绝不能说“证实了 $H_0$”，只能说“缺乏足够证据推翻 $H_0$”）。
-3. **正态性偏度与峰度阈值速记**：
-   - 偏度（Skewness）：好在 **$\pm 1$**，可接受在 **$\pm 2$**。
-   - 峰度（Kurtosis）：好在 **$\pm 2$**，可接受在 **$\pm 3$**。
-   - 只要题目说“偏度为 3.5”或“严重偏离正态” $\rightarrow$ **坚决选择非参数检验（Non-parametric）**！
-4. **两组 vs. 多组检验选型**：
-   - 正态数据比较 2 组独立样本 $\rightarrow$ **Two-sample t-Test**。
-   - 正态数据比较 3 组及以上独立样本 $\rightarrow$ **One-Way ANOVA**。
-   - 非正态数据比较 2 组独立样本 $\rightarrow$ **Mann-Whitney U-test**。
-   - 非正态数据比较 3 组及以上独立样本 $\rightarrow$ **Kruskal-Wallis H-test**。
-   - 评估培训前后（配对）且非正态 $\rightarrow$ **Wilcoxon signed rank test**。
-5. **图表选型特征词秒杀**：
-   - 看到“随时间变化（Over time / Trends）” $\rightarrow$ **Line chart**。
-   - 看到“两个变量的相关关系（Correlation / Outliers）” $\rightarrow$ **Scatter plot**。
-   - 看到“三个数值维度（3 numeric dimensions / Cost, Value, Risk）” $\rightarrow$ **Bubble graph**。
-   - 看到“多属性多维度综合能力对比（Comparing performance across multiple criteria）” $\rightarrow$ **Radar / Spider chart**。
-6. **KPI 计算易错点**：
-   - $POM$ 必须是 4 项百分比连续相乘，**绝不是加法相加再除以 4**！
-   - $CCC = DIO + DSO - DPO$（注意应付账款 DPO 前面是**减号**，因为占用供应商资金对自己的现金流是有利的）。
-   - 库存周转率 $IT = COGS / \text{平均库存}$，数值越大越好。
+1. **Hypothesis Formulation Sign Traps**:
+   - The Alternative Hypothesis ($H_1$ or $H_a$) **CAN NEVER CONTAIN AN EQUALS SIGN** ($=, \le, \ge$). Any multiple-choice option showing $H_1$ with an equals sign is mathematically incorrect.
+   - The Null Hypothesis ($H_0$) **MUST ALWAYS CONTAIN AN EQUALS SIGN** ($=, \le, \ge$).
+2. **P-Value & The Golden Decision Rule**:
+   - $P < 0.05 \implies$ **Reject $H_0$** (Statistically significant difference detected).
+   - $P \ge 0.05 \implies$ **Fail to Reject $H_0$** (Do not say *"proved $H_0$"*).
+   - Remember the definition: *"P-value is the chance of your result being just a coincidence."*
+3. **Normality Threshold Triggers**:
+   - Skewness acceptable within **$\pm 2.0$**; Kurtosis acceptable within **$\pm 3.0$**.
+   - If a question notes: *"Skewness is $+2.85$, Kurtosis is $+4.12$"* $\implies$ Normality is violated; **must choose a Non-Parametric test**!
+4. **Parametric vs. Non-Parametric Trigger Matchings**:
+   - 2 related samples + non-normal $\implies$ **Wilcoxon signed rank test**.
+   - 2 independent samples + non-normal (e.g., Likert scale) $\implies$ **Mann-Whitney U-test**.
+   - 3+ independent samples + non-normal $\implies$ **Kruskal-Wallis H-test**.
+   - 3+ related samples + non-normal $\implies$ **Friedman test**.
+   - Categorical cross-tabulation $\implies$ **Chi-square test ($\chi^2$)**.
+5. **Chart Type Keywords**:
+   - *"Three numerical dimensions"* OR *"Cost vs. Value vs. Risk"* $\implies$ **Bubble Graph**.
+   - *"Multiple evaluation criteria / Area covered represents overall value"* $\implies$ **Radar / Spider Chart**.
+   - *"Changes over time / Temporal trends"* $\implies$ **Line Chart**.
+   - *"Correlation between two continuous variables / Spotting outliers"* $\implies$ **Scatter Plot**.
+6. **KPI Calculation Traps**:
+   - **POM** is **multiplicative**: $POM = \%Complete \times \%On\text{-}time \times \%Damage\text{-}free \times \%Correctly\ invoiced$. (Never calculate an arithmetic average!).
+   - **CCC**: $CCC = DIO + DSO - DPO$. (Remember that DPO has a minus sign).
+   - **Inventory Turnover**: $COGS / \text{Average Inventory}$. Higher is better.
 
 ---
 
-# MODULE 4: 高仿真期中全英文模拟题库 (20 题全解析)
+# SECTION 4: MIDTERM SIMULATION EXAM (20 MCQS)
 
-> 本题库覆盖 Week 5 诊断性分析统计学检验与 Week 6 可视化、KPI 及服务链的全部考点。每题均为全英文单选题（Single Correct Answer）。
+> **Instructions**: Read each question carefully. Select the SINGLE best answer. There is no negative marking.
 
 ---
 
@@ -319,7 +320,7 @@ C. Fail to reject the null hypothesis because the P-value is not smaller than $0
 D. Conclude that male and female supervisors have identical salary distributions with 100% certainty.
 
 ### Question 5
-In hypothesis testing, what is the fundamental conceptual meaning of a P-value?  
+In hypothesis testing, what is the fundamental conceptual meaning of a P-value as defined in the Week 5 lecture slides?  
 A. The probability that the alternative hypothesis is mathematically false.  
 B. The chance of your observed sample outcome being merely a random coincidence under the null hypothesis.  
 C. The percentage of missing data points detected during Excel data cleaning.  
@@ -340,7 +341,7 @@ C. Kruskal-Wallis H-test
 D. Chi-square test of independence
 
 ### Question 8
-A logistics manager wishes to test whether employee job satisfaction levels (measured on a 1-to-5 ordinal Likert scale) differ between three completely unrelated shift teams (Day shift, Swing shift, Night shift). Because the dependent variable is ordinal Likert scaled data, which statistical test is most appropriate?  
+A logistics manager wishes to test whether employee job satisfaction levels (measured on a 1-to-5 ordinal Likert scale) differ between three completely unrelated shift teams (Day shift, Swing shift, Night shift). Because the dependent variable is ordinal Likert-scaled data, which statistical test is most appropriate?  
 A. One-Way ANOVA Single Factor  
 B. Kruskal-Wallis H-test  
 C. Friedman test  
@@ -441,162 +442,162 @@ D. 3-Axis Stacked Bar Graph
 
 ---
 
-# MODULE 5: 模拟题标准答案与中英双语深度解析 (Answer Key & Explanations)
+# SECTION 5: ANSWER KEY & IN-DEPTH BILINGUAL EXPLANATIONS
 
 ### Question 1
-- **正确答案**: **B**
-- **考点出处**: Part 5 / Week 5 Slide 5 & 6 / When do we need Diagnostic Analytics?
-- **深度解析**:
-  - **英文解析**: When anomalies occur (e.g., a sudden 45% spike in returns) or when an analyst investigates the reasons/causes behind observed performance patterns, this falls under **Diagnostic Analytics** (*"Why did it happen?"*). Descriptive analytics merely records the spike, while Predictive would forecast future returns.
-  - **中文解析**: 核心题眼在于“突发异常激增 45%”（Anomalies）以及调查其背后的“根本原因”（Underlying root cause）。根据分析类型演进框架，探寻“为什么发生”是典型的**诊断性分析（Diagnostic Analytics）**。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 1.1 / Week 5 Slide 5 & 6 / When do we need Diagnostic Analytics?
+- **Analytical Rationale**:  
+  When operational anomalies occur (e.g., a sudden 45% spike in product returns) and an analyst investigates the root causes (*"Why did it happen?"*), this falls squarely under **Diagnostic Analytics**. Descriptive analytics merely captures what occurred, while Predictive analytics models future outcomes.
+- **【中文解析】**: 题干核心考点在于“突发异常激增 45%”（Anomalies）以及调查其背后的“根因”（Underlying root cause）。根据分析类型演进框架，探究“为什么会发生”（Why did it happen?）是典型的**诊断性分析（Diagnostic Analytics）**。故选 B。
 
 ### Question 2
-- **正确答案**: **B**
-- **考点出处**: Part 5 / Week 5 Slide 10 / Correlation Thresholds
-- **深度解析**:
-  - **英文解析**: Slide 10 establishes the official threshold bands: $|r| \ge 0.50$ is High/Strong; **$|r|$ between $0.30$ and $0.49$ is classified as "Moderate degree / medium correlation"**; $|r| < 0.29$ is Small/Low. An $r$ of $-0.42$ has an absolute value of $0.42$, which sits squarely in the moderate/medium band.
-  - **中文解析**: 课件第 10 页标准考点：相关系数绝对值在 $0.30 \sim 0.49$ 之间被官方严格定义为**中度相关（Moderate / Medium degree correlation）**。$|-0.42| = 0.42$，落在该区间内。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 1.2 / Week 5 Slide 10 / Correlation Thresholds
+- **Analytical Rationale**:  
+  Slide 10 establishes the official threshold bands: $|r| \ge 0.50$ is High/Strong; **$|r|$ between $0.30$ and $0.49$ is classified as "Moderate degree / medium correlation"**; $|r| < 0.29$ is Small/Low. An $r$ of $-0.42$ yields $|-0.42| = 0.42$, which falls directly into the moderate/medium category.
+- **【中文解析】**: 课件第 10 页标准判定考点：相关系数绝对值在 $0.30 \sim 0.49$ 之间被官方严格划分为**中度相关（Moderate / Medium degree correlation）**。$|-0.42| = 0.42$，落在该区间内。故选 B。
 
 ### Question 3
-- **正确答案**: **B**
-- **考点出处**: Part 5 / Week 5 Slide 17 & 21 / Hypothesis Formulation Signs
-- **深度解析**:
-  - **英文解析**: Slide 17 defines strict mathematical sign rules: **$H_0$ must contain an equality condition ($=$, $\ge$, $\le$)**, representing the status quo to be rejected. **$H_1$ represents the research claim and can ONLY use directional signs ($<$, $>$, $\ne$)**. Here, the claim is that defects are fewer than 50 ppm ($H_1: \mu < 50$), making the opposing null hypothesis $H_0: \mu \ge 50$.
-  - **中文解析**: 假设检验符号法则：$H_0$ 必须包含等号（$=, \le, \ge$），代表被检验的基准现状；$H_1$ 是研究者希望证实的主张，严禁包含等号（只能是 $<, >, \ne$）。本题的研究主张是缺陷率低于 50 ppm（$H_1: \mu < 50$），因此对应的零假设必为 $H_0: \mu \ge 50$。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 1.3 / Week 5 Slide 17 & 21 / Mathematical Hypothesis Signs
+- **Analytical Rationale**:  
+  Slide 17 sets strict mathematical conventions: **$H_0$ must contain an equality condition ($=$, $\ge$, $\le$)**, representing the status quo baseline. **$H_1$ represents the research claim and can ONLY use directional inequality signs ($<$, $>$, $\ne$)**. Here, the research claim is that the defect rate is fewer than 50 ppm ($H_1: \mu < 50$), making the opposing null hypothesis $H_0: \mu \ge 50$.
+- **【中文解析】**: 假设检验符号法则：$H_0$ 必须包含等号（$=, \le, \ge$），代表被检验的基准现状；$H_1$ 是研究者希望证实的主张，严禁包含等号（只能是 $<, >, \ne$）。本题的研究主张是缺陷率低于 50 ppm（$H_1: \mu < 50$），因此对应的零假设必为 $H_0: \mu \ge 50$。故选 B。
 
 ### Question 4
-- **正确答案**: **C**
-- **考点出处**: Part 5 / Week 5 Slide 24 & 39 / P-Value Decision Rule
-- **深度解析**:
-  - **英文解析**: The golden decision rule is: **Reject $H_0$ if and only if P-value $< 0.05$**. Here, the calculated one-tail P-value is $0.082$. Since $0.082 \ge 0.05$, the sample evidence is insufficient to reject the null hypothesis. The correct statistical action is to **Fail to reject $H_0$**. Slide 39 explicitly illustrates: *"Do we have evidence? Yes. Is it strong enough? No (one-tail P-value is not smaller than 0.05)."*
-  - **中文解析**: 核心决策红线：当且仅当 P 值 $< 0.05$ 时，才能拒绝零假设。此处计算出的单尾 P 值为 $0.082 > 0.05$，说明虽然样本存在差异，但这种差异纯属抽样偶然巧合的概率高达 8.2%，证据不够充分，因此**无法拒绝零假设（Fail to reject $H_0$）**。课件第 39 页对此有完全一致的实战案例。故选 C。
+- **Correct Answer**: **C**
+- **Syllabus Reference**: Section 1.3 / Week 5 Slide 24 & 39 / P-Value Decision Rule
+- **Analytical Rationale**:  
+  The fundamental decision rule is: **Reject $H_0$ if and only if P-value $< 0.05$**. Here, the calculated one-tail P-value is $0.082$. Because $0.082 \ge 0.05$, the sample evidence is insufficient to reject the null hypothesis. The correct statistical action is to **Fail to reject $H_0$**. Slide 39 explicitly illustrates: *"Do we have evidence? Yes. Is it strong enough? No (one-tail P-value is not smaller than 0.05)."*
+- **【中文解析】**: 决策红线：当且仅当 P 值 $< 0.05$ 时，才能拒绝零假设。此处计算出的单尾 P 值为 $0.082 > 0.05$，说明虽然样本存在差异，但这种差异纯属抽样偶然巧合的概率高达 8.2%，证据不足以推翻零假设，因此必须**无法拒绝零假设（Fail to reject $H_0$）**。故选 C。
 
 ### Question 5
-- **正确答案**: **B**
-- **考点出处**: Part 5 / Week 5 Slide 24 / P-Value Definition
-- **深度解析**:
-  - **英文解析**: Slide 24 verbatim states: *"P-value is the chance of your result being just a coincidence."* It quantifies the probability of observing sample data at least as extreme as what was measured, assuming that the null hypothesis is true.
-  - **中文解析**: 课件第 24 页原话：“P-value is the chance of your result being just a coincidence”（P 值就是你的测算结果纯粹是一个偶然巧合的概率）。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 1.3 / Week 5 Slide 24 / Definition of P-Value
+- **Analytical Rationale**:  
+  Slide 24 verbatim states: *"P-value is the chance of your result being just a coincidence."* Statistically, it represents the probability of observing sample results at least as extreme as those measured, assuming that the null hypothesis is true.
+- **【中文解析】**: 课件第 24 页原话考点：“P-value is the chance of your result being just a coincidence”（P 值就是你所观察到的样本结果纯属偶然巧合的概率）。故选 B。
 
 ### Question 6
-- **正确答案**: **C**
-- **考点出处**: Part 5 / Week 5 Slide 28, 29 & 32 / Normality Violations & Non-Parametric Selection
-- **深度解析**:
-  - **英文解析**: Slide 28 & 29 state that Skewness is acceptable up to $\pm 2.0$, and Kurtosis is acceptable up to $\pm 3.0$. Here, Skewness is $+2.85$ (exceeds $2.0$) and Kurtosis is $+4.12$ (exceeds $3.0$). The data severely violates normality! Slide 32 dictates that when comparing **two unrelated/independent samples** with non-normal data, one MUST use the non-parametric **Mann-Whitney U-test** instead of a parametric t-Test.
-  - **中文解析**: 偏度阈值要求在 $\pm 2.0$ 以内，峰度要求在 $\pm 3.0$ 以内。本题偏度为 2.85，峰度为 4.12，均严重超标，属于显著非正态分布。根据课件第 32 页矩阵，比较两个独立无关样本（两个班组）且数据非正态时，对应的非参数检验方法必为**曼-惠特尼 U 检验（Mann-Whitney U-test）**。故选 C。
+- **Correct Answer**: **C**
+- **Syllabus Reference**: Section 1.4 & 1.5 / Week 5 Slide 28, 29 & 32 / Normality Violations & Non-Parametric Selection
+- **Analytical Rationale**:  
+  Slides 28 & 29 state that Skewness is acceptable up to $\pm 2.0$, and Kurtosis is acceptable up to $\pm 3.0$. Here, Skewness is $+2.85$ (exceeds $2.0$) and Kurtosis is $+4.12$ (exceeds $3.0$). The data severely violates normality! Slide 32 dictates that when comparing **two unrelated/independent samples** with non-normal data, one MUST use the non-parametric **Mann-Whitney U-test** instead of a parametric two-sample t-Test.
+- **【中文解析】**: 偏度阈值要求在 $\pm 2.0$ 以内，峰度要求在 $\pm 3.0$ 以内。本题偏度为 2.85，峰度为 4.12，均严重超标，属于显著非正态分布。根据课件第 32 页矩阵，比较两个独立无关样本（两个班组）且数据严重偏态时，对应的非参数检验方法必为**曼-惠特尼 U 检验（Mann-Whitney U-test）**。故选 C。
 
 ### Question 7
-- **正确答案**: **B**
-- **考点出处**: Part 5 / Week 5 Slide 26 & 32 / Non-Parametric Test for Related Samples
-- **深度解析**:
-  - **英文解析**: The scenario involves testing the **same group before and after** an intervention, which represents **two related/paired samples**. According to Slide 26 & 32, the parametric test is the paired t-Test; however, because normality is violated, the required non-parametric equivalent is the **Wilcoxon signed rank test**.
-  - **中文解析**: 检验“同一组工人培训前与培训后”的绩效，属于经典的“两个相关/配对样本（Two related samples）”。在数据不满足正态分布的前提下，查表可知对应的非参数检验必须选用**威尔科克森符号秩检验（Wilcoxon signed rank test）**。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 1.5 / Week 5 Slide 26 & 32 / Non-Parametric Test for Related Samples
+- **Analytical Rationale**:  
+  The scenario involves testing the **same group before and after** an intervention, which represents **two related/paired samples**. According to Slides 26 & 32, the parametric test is the paired t-Test; however, because normality is violated, the required non-parametric equivalent is the **Wilcoxon signed rank test**.
+- **【中文解析】**: 检验“同一批叉车司机在培训前与培训后”的表现，属于经典的“两个相关/配对样本（Two related samples）”。在数据不服从正态分布的前提下，查表可知对应的非参数检验必须选用**威尔科克森符号秩检验（Wilcoxon signed rank test）**。故选 B。
 
 ### Question 8
-- **正确答案**: **B**
-- **考点出处**: Part 5 / Week 5 Slide 26 & 32 / Kruskal-Wallis H-Test
-- **深度解析**:
-  - **英文解析**: The scenario involves comparing **three unrelated groups** (Day, Swing, Night shifts) against an ordinal variable (Likert satisfaction scale). Slide 26 & 32 explicitly assign this scenario (*"Comparing three or more samples with unrelated variables / Projects vs Job satisfaction Likert scale"*) to the non-parametric **Kruskal-Wallis H-test**.
-  - **中文解析**: 比较 3 个或更多独立无关组（三个不同班组），且被解释变量为李克特等级量表数据（序数非正态数据），根据课件第 26 与 32 页矩阵，标准非参数方法为**克鲁斯卡尔-沃利斯 H 检验（Kruskal-Wallis H-test）**。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 1.5 / Week 5 Slide 26 & 32 / Kruskal-Wallis H-Test
+- **Analytical Rationale**:  
+  The scenario involves comparing **three unrelated groups** (Day, Swing, Night shifts) against an ordinal variable (1-to-5 Likert satisfaction scale). Slides 26 & 32 explicitly assign this scenario (*"Comparing three or more samples with unrelated variables / Projects vs Job satisfaction Likert scale"*) to the non-parametric **Kruskal-Wallis H-test**.
+- **【中文解析】**: 比较 3 个独立无关组（三个不同班组），且被解释变量为李克特等级量表数据（序数非正态数据），根据课件第 26 与 32 页矩阵，标准非参数检验方法为**克鲁斯卡尔-沃利斯 H 检验（Kruskal-Wallis H-test）**。故选 B。
 
 ### Question 9
-- **正确答案**: **B**
-- **考点出处**: Part 5 / Week 5 Slide 41 & 46 / ANOVA Single Factor Meaning
-- **深度解析**:
-  - **英文解析**: Slide 46 explicitly poses the question: *"Why did we select single factor!?"* The answer is because there is only **one independent factor / variable** being tested (in this case, the Production Line), even though that single factor has three different treatment groups/lines being compared.
-  - **中文解析**: 课件第 46 页专门启发思考：“Why did we select single factor!?”。其根本原因在于模型中只考察**一个独立的分类自变量/因子**（即生产线），虽然这个因子包含 3 个不同水平（1线、2线、3线）。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 1.6 / Week 5 Slide 41 & 46 / Meaning of ANOVA Single Factor
+- **Analytical Rationale**:  
+  Slide 46 explicitly addresses this question: *"Why did we select single factor!?"* The reason is that there is only **one independent factor / variable** being evaluated (in this case, the Production Line), even though that single factor has three different treatment levels/lines being compared.
+- **【中文解析】**: 课件第 46 页专门启发思考：“Why did we select single factor!?”。其根本原因在于分析模型中只考察**一个独立的分类自变量/因子**（即生产线），虽然这个因子包含 3 个不同水平（1线、2线、3线）。故选 B。
 
 ### Question 10
-- **正确答案**: **C**
-- **考点出处**: Part 5 / Week 5 Slide 41, 45 & Week 7 Slide 55 / Significance F in ANOVA
-- **深度解析**:
-  - **英文解析**: In an Excel ANOVA summary table, the key decision metric is **Significance F**, which represents the overall P-value for testing whether all group means are identical. If Significance F $< 0.05$, the null hypothesis is rejected.
-  - **中文解析**: 在 Excel 输出的方差分析表中，用于判定组间均值是否具有显著差异的统计量是 **Significance F**（其数值完全等价于方差分析模型的总 P 值）。若 Significance F $< 0.05$，则拒绝零假设。故选 C。
+- **Correct Answer**: **C**
+- **Syllabus Reference**: Section 1.6 / Week 5 Slide 41 & 45 / Significance F in ANOVA
+- **Analytical Rationale**:  
+  In an Excel ANOVA summary table, the primary decision metric is **Significance F**, which represents the omnibus P-value for testing whether all group means are identical. If Significance F $< 0.05$, the null hypothesis is rejected.
+- **【中文解析】**: 在 Excel 输出的单因素方差分析表中，用于判定组间均值是否具有显著差异的核心统计量是 **Significance F**（其数值完全等价于方差分析模型的总 P 值）。若 Significance F $< 0.05$，则拒绝零假设。故选 C。
 
 ### Question 11
-- **正确答案**: **B**
-- **考点出处**: Part 6 / Week 6 Slide 10 / POM Calculation
-- **深度解析**:
-  - **英文解析**: Slide 10 gives the exact formula:
-    $$POM = (\% Complete) \times (\% On\text{-}time) \times (\% Damage\text{-}free) \times (\% Correctly\ invoiced)$$
-    $$POM = 0.96 \times 0.95 \times 0.98 \times 0.99 = 0.884184 \approx 88.42\%.$$
-    Note that this is multiplicative, not an arithmetic average!
-  - **中文解析**: 课件第 10 页标准公式题：完美订单满足率（POM）采用各项概率连乘计算：
-    $$POM = 0.96 \times 0.95 \times 0.98 \times 0.99 = 0.884184 \approx 88.42\%。$$
-    千万不要算成加法平均数（97% 是算术平均的典型陷阱选项）！故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 2.2 / Week 6 Slide 10 / POM Calculation
+- **Analytical Rationale**:  
+  Slide 10 specifies the exact formula:
+  $$POM = (\% Complete) \times (\% On\text{-}time) \times (\% Damage\text{-}free) \times (\% Correctly\ invoiced)$$
+  $$POM = 0.96 \times 0.95 \times 0.98 \times 0.99 = 0.884184 \approx 88.42\%.$$
+  Note that this is multiplicative, not an arithmetic average!
+- **【中文解析】**: 完美订单满足率（POM）采用各项概率连乘计算：
+  $$POM = 0.96 \times 0.95 \times 0.98 \times 0.99 = 0.884184 \approx 88.42\%。$$
+  千万不要算成加法平均数（97.00% 是算术平均的典型陷阱选项）！故选 B。
 
 ### Question 12
-- **正确答案**: **C**
-- **考点出处**: Part 6 / Week 6 Slide 10 / Cash-to-Cash Cycle Time
-- **深度解析**:
-  - **英文解析**: Slide 10 defines the Cash-to-Cash Cycle Time formula:
-    $$CCC = \text{Days Inventory Outstanding (DIO)} + \text{Days Sales Outstanding (DSO)} - \text{Days Payable Outstanding (DPO)}$$
-    $$CCC = 45 + 30 - 50 = 25\text{ days.}$$
-  - **中文解析**: 现金周转周期公式为：
-    $$CCC = \text{存货天数} + \text{应收账款天数} - \text{应付账款天数} = 45 + 30 - 50 = 25\text{ 天。}$$
-    注意 DPO 前面是减号。故选 C。
+- **Correct Answer**: **C**
+- **Syllabus Reference**: Section 2.2 / Week 6 Slide 10 / Cash-to-Cash Cycle Time
+- **Analytical Rationale**:  
+  Slide 10 defines the CCC formula:
+  $$CCC = \text{Days Inventory Outstanding (DIO)} + \text{Days Sales Outstanding (DSO)} - \text{Days Payable Outstanding (DPO)}$$
+  $$CCC = 45 + 30 - 50 = 25\text{ days.}$$
+- **【中文解析】**: 现金周转周期公式为：
+  $$CCC = \text{存货天数} + \text{应收账款天数} - \text{应付账款天数} = 45 + 30 - 50 = 25\text{ 天。}$$
+  注意 DPO 前面是减号。故选 C。
 
 ### Question 13
-- **正确答案**: **C**
-- **考点出处**: Part 6 / Week 6 Slide 11 / The YouRace Problem
-- **深度解析**:
-  - **英文解析**: Slide 11 presents the identical problem:
-    - $\text{Inventory Turnover (2024)} = \frac{\$3,000,000}{\$250,000} = 12$
-    - $\text{Inventory Turnover (2025)} = \frac{\$4,500,000}{\$300,000} = 15$
-    The ratio increased from 12 to 15. Since a higher inventory turnover reflects more efficient asset utilization, inventory performance improved.
-  - **中文解析**: 课件第 11 页 YouRace 原题重现：
-    - 2024 年周转率 $= 3,000,000 / 250,000 = 12$；
-    - 2025 年周转率 $= 4,500,000 / 300,000 = 15$。
-    周转率由 12 提升至 15，周转率越高越好，代表 JIT 实施后库存资产运营效率显著提升。故选 C。
+- **Correct Answer**: **C**
+- **Syllabus Reference**: Section 2.2 / Week 6 Slide 11 / The YouRace Problem
+- **Analytical Rationale**:  
+  Slide 11 presents the identical problem:
+  - $\text{Inventory Turnover (2024)} = \frac{\$3,000,000}{\$250,000} = 12$
+  - $\text{Inventory Turnover (2025)} = \frac{\$4,500,000}{\$300,000} = 15$
+  The turnover ratio increased from 12 to 15. Because a higher inventory turnover indicates faster stock depletion and superior capital efficiency, inventory operational performance improved.
+- **【中文解析】**: 课件第 11 页 YouRace 原题重现：
+  - 2024 年周转率 $= 3,000,000 / 250,000 = 12$；
+  - 2025 年周转率 $= 4,500,000 / 300,000 = 15$。  
+  周转率由 12 提升至 15，周转率数值越高越好，代表 JIT 实施后库存资产运营效率显著提升。故选 C。
 
 ### Question 14
-- **正确答案**: **B**
-- **考点出处**: Part 6 / Week 6 Slide 14 / Servitisation by Manufacturers
-- **深度解析**:
-  - **英文解析**: Slide 14 defines Servitisation as manufacturers delivering not just tangible physical products, but bundling value-added services (maintenance, financing, extended warranties). It explicitly cites: *"Rolls-Royce, for instance, earns around 50% of its revenue from services."*
-  - **中文解析**: 课件第 14 页原版案例！制造业服务化（Servitisation）是指制造企业从单一售卖硬件转向输出整体服务解决方案。典型代表即劳斯莱斯（Rolls-Royce）约 50% 的收入来源于航空动力飞行小时维保服务。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 2.3 / Week 6 Slide 14 / Servitisation by Manufacturers
+- **Analytical Rationale**:  
+  Slide 14 defines Servitisation as manufacturers transitioning from selling pure hardware to bundling value-added services (maintenance, remote telemetry, financing). It explicitly cites: *"Rolls-Royce, for instance, earns around 50% of its revenue from services."*
+- **【中文解析】**: 课件第 14 页原版案例！制造业服务化（Servitisation）是指制造企业从单一售卖硬件转向输出整体服务解决方案。典型代表即劳斯莱斯（Rolls-Royce）约 50% 的收入来源于航空动力飞行小时维保服务（Power-by-the-Hour）。故选 B。
 
 ### Question 15
-- **正确答案**: **B**
-- **考点出处**: Part 6 / Week 6 Slide 18 / SLA Metrics in Logistics
-- **深度解析**:
-  - **英文解析**: Slide 18 specifically delineates SLA clauses for logistics and transportation services: **Delivery Time, Allowed Damage Rate, and Penalty for delays or damages**. Corporate tax and stock prices are irrelevant to logistics SLAs.
-  - **中文解析**: 课件第 18 页明确指出物流与运输外包 SLA 的三大核心法律量化条款：**送达交货时间（Delivery Time）、允许损坏率上限（Allowed Damage Rate）、以及因延误或破损引发的罚金条款（Penalty）**。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 2.3 / Week 6 Slide 18 / SLA Metrics in Logistics
+- **Analytical Rationale**:  
+  Slide 18 specifically identifies standard SLA provisions for logistics and transportation contracts: **Delivery Time, Allowed Damage Rate, and Penalty for delays or damages**. Corporate profit margins and personal taxes are completely outside the scope of operational logistics SLAs.
+- **【中文解析】**: 课件第 18 页明确指出物流与运输外包 SLA 的三大核心量化考核指标：**送达交货时间（Delivery Time）、允许损坏率上限（Allowed Damage Rate）、以及因延误或残损引发的罚金条款（Penalty）**。故选 B。
 
 ### Question 16
-- **正确答案**: **B**
-- **考点出处**: Part 6 / Week 6 Slide 13 / The Transition to Service Economies
-- **深度解析**:
-  - **英文解析**: Slide 13 describes the Second Industrial Revolution ($\approx 1870–1914$, also called the Technological Revolution) characterized by steel, electricity, petroleum, the internal combustion engine, and the rise of mass production.
-  - **中文解析**: 课件第 13 页工业革命时间线：第二次工业革命（约 1870–1914 年，又称技术革命），其标志性技术为钢铁、电力应用、石油、电话电报以及内燃机的大规模流水线生产。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 2.4 / Week 6 Slide 13 / The Four Industrial Revolutions
+- **Analytical Rationale**:  
+  Slide 13 describes the Second Industrial Revolution ($\approx 1870–1914$, also called the Technological Revolution) characterized by steel, electricity, petroleum, telegraph, telephone, the internal combustion engine, and the rise of mass production assembly lines.
+- **【中文解析】**: 课件第 13 页工业革命时间线：第二次工业革命（约 1870–1914 年，又称技术革命），其标志性技术为钢铁、电力广泛应用、石油、电话电报以及内燃机的大规模流水线生产。故选 B。
 
 ### Question 17
-- **正确答案**: **C**
-- **考点出处**: Part 6 / Week 6 Slide 34 / Bubble Graph
-- **深度解析**:
-  - **英文解析**: Slide 34 explains: *"Bubble graphs are useful for comparing the relationships between data objects in 3 numeric-data dimensions: the x-axis data, the y-axis data, and data represented by the bubble size... often used in business to visualise the relationships between alternatives investment in dimensions such as cost, value, and risk."*
-  - **中文解析**: 课件第 34 页原话考查！气泡图（Bubble graph）专用于在二维平面上表达**三个数值维度（Three numeric dimensions）**（横轴、纵轴和气泡尺寸大小），商业中广泛用于对比投资备选方案的“成本、价值与风险”。故选 C。
+- **Correct Answer**: **C**
+- **Syllabus Reference**: Section 2.5 / Week 6 Slide 34 / Bubble Graph
+- **Analytical Rationale**:  
+  Slide 34 explains: *"Bubble graphs are useful for comparing the relationships between data objects in 3 numeric-data dimensions: the x-axis data, the y-axis data, and data represented by the bubble size... often used in business to visualise the relationships between alternatives investment in dimensions such as cost, value, and risk."*
+- **【中文解析】**: 课件第 34 页原话考查！气泡图（Bubble graph）专用于在二维平面上展现**三个数值维度（Three numeric dimensions）**（横轴、纵轴和气泡尺寸大小），商业中广泛用于对比投资备选方案的“成本、价值与风险”。故选 C。
 
 ### Question 18
-- **正确答案**: **A**
-- **考点出处**: Part 6 / Week 6 Slide 35 / Radar Chart (Spider Chart)
-- **深度解析**:
-  - **英文解析**: Slide 35 defines Radar Charts: *"very useful when comparing performance/measurement results from different sources... primary way of displaying more than two or three values at once... the greater the area covered by the plot, the greater the overall value."*
-  - **中文解析**: 课件第 35 页雷达图（Radar/Spider chart）定义：用于综合对比多个不同维度的绩效指标（一次性展示 2–3 个以上指标），图表绘制覆盖的面积越大，代表综合表现越优秀。故选 A。
+- **Correct Answer**: **A**
+- **Syllabus Reference**: Section 2.5 / Week 6 Slide 35 / Radar Chart (Spider Chart)
+- **Analytical Rationale**:  
+  Slide 35 defines Radar Charts: *"very useful when comparing performance/measurement results from different sources... primary way of displaying more than two or three values at once... the greater the area covered by the plot, the greater the overall value."*
+- **【中文解析】**: 课件第 35 页雷达图（Radar/Spider chart）定义：用于综合对比多个不同维度的绩效指标（一次性展示 2–3 个以上指标），图表绘制覆盖的面积越大，代表综合表现越优秀。故选 A。
 
 ### Question 19
-- **正确答案**: **A**
-- **考点出处**: Part 6 / Week 6 Slide 36 / Chart vs. Dashboard
-- **深度解析**:
-  - **英文解析**: Slide 36 establishes this exact metaphor: *"A chart, or a graph, is the display of a specific information (a chapter of a story). A dashboard is a collection of these (chapters come together to tell a story)... arranged on a single screen so the information can be monitored at a glance."*
-  - **中文解析**: 课件第 36 页经典比喻考题：图表展示的是某一具体维度的单项信息，代表“故事中的一个章节”；而仪表盘则是关联图表与 KPI 的集合，在单块屏幕上直观呈现，是将“所有章节组合起来讲述一个完整的业务故事”。故选 A。
+- **Correct Answer**: **A**
+- **Syllabus Reference**: Section 2.6 / Week 6 Slide 36 / Chart vs. Dashboard
+- **Analytical Rationale**:  
+  Slide 36 establishes this exact metaphor: *"A chart, or a graph, is the display of a specific information (a chapter of a story). A dashboard is a collection of these (chapters come together to tell a story)... arranged on a single screen so the information can be monitored at a glance."*
+- **【中文解析】**: 课件第 36 页经典比喻考题：图表展示的是某一具体维度的单项信息，代表“故事中的一个章节”；而仪表盘则是关联图表与 KPI 的集合，在单块屏幕上直观呈现，是将“所有章节组合起来讲述一个完整的业务故事”。故选 A。
 
 ### Question 20
-- **正确答案**: **B**
-- **考点出处**: Part 6 / Week 6 Slide 33 / Scatter Plots
-- **深度解析**:
-  - **英文解析**: Slide 33 notes that a Scatter Plot is particularly useful when exploring the correlation pattern between two continuous numerical variables ($X$ = Overtime hours, $Y$ = Packing errors). It visually illustrates correlation strength, linear/nonlinear relationships, and clearly highlights atypical outliers.
-  - **中文解析**: 课件第 33 页指出：散点图（Scatter plot）专门用于展现两个连续数值变量之间的相关性关系（横轴自变量，纵轴因变量），并能清晰识别异常离群点（Outliers）。故选 B。
+- **Correct Answer**: **B**
+- **Syllabus Reference**: Section 2.5 / Week 6 Slide 33 / Scatter Plots
+- **Analytical Rationale**:  
+  Slide 33 notes that a Scatter Plot is particularly useful when exploring the correlation pattern between two continuous numerical variables ($X$ = Overtime hours, $Y$ = Packing errors). It visually illustrates correlation strength, linear/nonlinear relationships, and clearly highlights atypical outliers.
+- **【中文解析】**: 课件第 33 页指出：散点图（Scatter plot）专门用于展现两个连续数值变量之间的相关性关系（横轴自变量，纵轴因变量），并能清晰识别异常离群点（Outliers）。故选 B。
 
 ---
-*文件已自动生成并保存至本地工作空间：`INMT5518_Part5_Part6_Detailed_Review.md`*
+*End of Part 5 & Part 6 Comprehensive Exam Review Guide (English-First Edition)*
