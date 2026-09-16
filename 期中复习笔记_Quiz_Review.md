@@ -20,7 +20,7 @@
 *The coordination of production, inventory, location, transportation, and information among participants to achieve the best mix of responsiveness and efficiency.*
 
 **SCM 的目标 Goal（Goldratt）**  
-> "Increase throughput while simultaneously reducing both inventory and operating expense."  
+> "Increase throughput while simultaneously reducing both inventory and operating expense."  ，
 > 在同时降低库存和运营费用的情况下，提高吞吐量。
 
 **SCM vs Logistics 区别**  

@@ -445,7 +445,7 @@ C. 800 units
 D. 1,600 units
 
 ### Question 11
-Using the data from Question 10 ($D = 16,000$, $S = \$50$, $H = \$4$), if the distribution hub orders exactly at the EOQ of 632 units, what will be the resulting Annual Holding Cost (assuming safety stock is zero) and Annual Ordering Cost?  
+Using the data from Question 10 ($D = 16,000$, order cost $S = \$50$, holding cost $H = \$4$), if the distribution hub orders exactly at the EOQ of 632 units, what will be the resulting Annual Holding Cost (assuming safety stock is zero) and Annual Ordering Cost?  
 A. Annual Holding Cost = \$1,264; Annual Ordering Cost = \$1,266 (approximately equal at \$1,265)  
 B. Annual Holding Cost = \$3,200; Annual Ordering Cost = \$800  
 C. Annual Holding Cost = \$632; Annual Ordering Cost = \$2,500  
@@ -595,10 +595,20 @@ D. Switching all transport modes from express motor freight to slow marine shipp
 - **Correct Answer**: **A**
 - **Syllabus Reference**: Section 3.2 / EOQ Cost Equality
 - **Analytical Rationale**:  
-  - $\text{Annual Holding Cost} = \left(\frac{Q}{2}\right) \times H = \left(\frac{632.45}{2}\right) \times 4 = 316.23 \times 4 \approx \$1,264.91$.  
-  - $\text{Annual Ordering Cost} = \left(\frac{D}{Q}\right) \times S = \left(\frac{16,000}{632.45}\right) \times 50 = 25.30 \times 50 \approx \$1,264.91$.  
-  - *Core Principle*: At the exact EOQ, **Annual Holding Cost equals Annual Ordering Cost**!
-- **【中文解析】**: 核心规律考查：在 EOQ 最优订货批量处，**年持有成本必定精确等于年订货成本**（本题计算均为约 \$1,265）。故选 A。
+  Calculate both annual holding and ordering costs using the optimal order quantity ($Q = 632.45\text{ units}$):
+
+  $$\text{Annual Holding Cost} = \left(\frac{Q}{2}\right) \times H = \left(\frac{632.45}{2}\right) \times 4 = 316.23 \times 4 \approx \$1,264.91$$
+
+  $$\text{Annual Ordering Cost} = \left(\frac{D}{Q}\right) \times S = \left(\frac{16,000}{632.45}\right) \times 50 = 25.30 \times 50 \approx \$1,264.91$$
+
+  - *Core Principle*: At the exact EOQ, **Annual Holding Cost strictly equals Annual Ordering Cost** (both are approximately \$1,265)!
+- **【中文解析】**: 核心规律考查：在 EOQ 最优订货批量处，**年持有成本必定精确等于年订货成本**。
+
+  $$\text{年持有成本} = \left(\frac{Q}{2}\right) \times H = \left(\frac{632.45}{2}\right) \times 4 \approx \$1,264.91$$
+
+  $$\text{年订货成本} = \left(\frac{D}{Q}\right) \times S = \left(\frac{16,000}{632.45}\right) \times 50 \approx \$1,264.91$$
+
+  计算结果均约为 \$1,265，二者精确相等。故选 A。
 
 ### Question 12
 - **Correct Answer**: **B**
