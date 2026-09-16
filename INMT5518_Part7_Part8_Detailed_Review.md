@@ -307,9 +307,9 @@ $$\mathbf{\text{Product Price} = 16387.30 + 2.03 \times (\text{Production Cost})
 
 | Statistical Test / Metric | Ideal / Good Range | Acceptable Boundary | Operational Rule & Violation Action |
 | :--- | :---: | :---: | :--- |
-| **Skewness (偏度)** | $[-1.0, +1.0]$ | $[-2.0, +2.0]$ | If $|Skewness| > 2.0 \implies$ Severe asymmetry; **Parametric tests invalid; switch to Non-Parametric tests.** |
-| **Kurtosis (峰度)** | $[-2.0, +2.0]$ | $[-3.0, +3.0]$ | If $|Kurtosis| > 3.0 \implies$ Heavy tails/outliers; **Use Non-Parametric tests.** |
-| **Pearson Correlation ($|r|$)** | $\pm 0.50 \sim \pm 1.00$ (High/Strong) | $\pm 0.30 \sim \pm 0.49$ (Moderate) | Below $\pm 0.29 \implies$ Small / Low correlation (weak linear association). |
+| **Skewness (偏度)** | $[-1.0, +1.0]$ | $[-2.0, +2.0]$ | If $\vert Skewness \vert > 2.0 \implies$ Severe asymmetry; **Parametric tests invalid; switch to Non-Parametric tests.** |
+| **Kurtosis (峰度)** | $[-2.0, +2.0]$ | $[-3.0, +3.0]$ | If $\vert Kurtosis \vert > 3.0 \implies$ Heavy tails/outliers; **Use Non-Parametric tests.** |
+| **Pearson Correlation ($\vert r \vert$)** | $\pm 0.50 \sim \pm 1.00$ (High/Strong) | $\pm 0.30 \sim \pm 0.49$ (Moderate) | Below $\pm 0.29 \implies$ Small / Low correlation (weak linear association). |
 | **Regression Coefficient ($R^2$)** | **$0.50 \sim 0.99$ ($50\% \sim 99\%$)** | $0.50 \sim 0.99$ | Below $0.50 \implies$ Inadequate model explanatory power; equal to $1.00 \implies$ Overfitting or fabricated data. |
 | **Hypothesis Testing P-value** | $< 0.05$ | $< 0.05$ | If $P \ge 0.05 \implies$ **Fail to Reject $H_0$** (Insufficient evidence to reject null baseline). |
 | **Regression Significance F** | $< 0.05$ | $< 0.05$ | If $\text{Significance } F \ge 0.05 \implies$ Model overall is not statistically significant; **CANNOT proceed.** |

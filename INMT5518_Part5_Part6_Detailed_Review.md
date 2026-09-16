@@ -38,12 +38,12 @@ Perfect Negative       Strong Negative   Moderate Neg   Zero     Moderate Pos   
 
 ### Official Lecture Interpretation Thresholds (Slide 10)
 
-| Absolute Value Range ($|r|$) | Official Classification (Slide 10) | Operational & Mathematical Meaning |
+| Absolute Value Range ($\vert r \vert$) | Official Classification (Slide 10) | Operational & Mathematical Meaning |
 | :---: | :--- | :--- |
-| **Near $\pm 1.00$** | **Perfect correlation** | Points align on a straight line; one variable moves in perfect mathematical lockstep with the other. |
-| **$\pm 0.50$ to $\pm 1.00$** | **High degree / Strong correlation** | Strong, robust linear co-movement between variables; serves as an essential candidate feature for predictive modeling. |
-| **$\pm 0.30$ to $\pm 0.49$** | **Moderate degree / Medium correlation** | Noticeable linear co-movement, accompanied by moderate stochastic dispersion/noise. |
-| **Below $\pm 0.29$** | **Small / Low degree correlation** | Weak or negligible linear relationship; variables are practically independent in operations. |
+| **Near ±1.00** | **Perfect correlation** | Points align on a straight line; one variable moves in perfect mathematical lockstep with the other. |
+| **±0.50 to ±1.00** | **High degree / Strong correlation** | Strong, robust linear co-movement between variables; serves as an essential candidate feature for predictive modeling. |
+| **±0.30 to ±0.49** | **Moderate degree / Medium correlation** | Noticeable linear co-movement, accompanied by moderate stochastic dispersion/noise. |
+| **Below ±0.29** | **Small / Low degree correlation** | Weak or negligible linear relationship; variables are practically independent in operations. |
 
 > **Critical Axiom**: **"Correlation does NOT imply Causation."**  
 > *(相关性不等于因果性。相关性仅能证明两个变量存在伴随变动，不能直接断定前者是后者的原因，但它是筛选因果候选变量的第一步。)*
