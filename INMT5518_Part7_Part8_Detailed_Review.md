@@ -290,7 +290,7 @@ $$\mathbf{\text{Product Price} = 16387.30 + 2.03 \times (\text{Production Cost})
 
 | Category | Model / Metric Name | Standard Mathematical Formula | Parameter Definitions & Units |
 | :--- | :--- | :--- | :--- |
-| **Inventory** | **Economic Order Quantity (EOQ)** | $$\mathbf{EOQ = \sqrt{\frac{2DS}{H}}}$$ | $D$: Annual Demand (units); $S$: Order/Setup Cost (\$/order); $H$: Holding Cost (\$/unit/year). **At EOQ: Annual Holding Cost $\equiv$ Annual Ordering Cost!** |
+| **Inventory** | **Economic Order Quantity (EOQ)** | $$\mathbf{EOQ = \sqrt{\frac{2DS}{H}}}$$ | $D$: Annual Demand (units); $S$: Order/Setup Cost (dollars/order); $H$: Holding Cost (dollars/unit/year). **At EOQ: Annual Holding Cost $\equiv$ Annual Ordering Cost!** |
 | **Inventory** | **Total Annual Inventory Cost (TAC)** | $$\mathbf{TAC = (D \cdot P) + \left(SS + \frac{Q}{2}\right)H + \left(\frac{D}{Q}\right)S}$$ | $P$: Unit purchase price; $SS$: Safety stock buffer; $Q$: Batch order quantity; Average Inventory $= SS + Q/2$. |
 | **Inventory** | **Simple Safety Stock (SS)** | $$\mathbf{SS = \text{Max LT Usage} - \text{Avg LT Usage}}$$ | Difference between maximum usage during lead time and average usage during lead time. **Root cause: VARIATION.** |
 | **Performance** | **Perfect Order Measurement (POM)** | $$\mathbf{POM = (\%Comp) \times (\%On\text{-}time) \times (\%Dmg\text{-}free) \times (\%Inv)}$$ | Multiplicative calculation across all four metrics (Complete, On-time, Damage-free, Invoiced correctly). **Never take an arithmetic average!** |
@@ -391,7 +391,7 @@ C. Computing seasonal trendline regressions across 144 months of commercial airl
 D. Calculating daily economic order quantities for standardized industrial machine screws
 
 ### Question 5
-A simple linear regression equation is estimated as: $\text{Demand} = 15.4 \times (\text{Advertising Spend in \$k}) + 120$. What is the precise statistical interpretation of the slope coefficient $15.4$?  
+A simple linear regression equation is estimated as: $\text{Demand} = 15.4 \times (\text{Advertising Spend}) + 120$ (where Advertising Spend is measured in thousands of dollars, \$k). What is the precise statistical interpretation of the slope coefficient $15.4$?  
 A. When advertising spend is zero, total demand is expected to be $15.4$ units.  
 B. For every additional \$1,000 increase in advertising spend, product demand is expected to increase by an average of $15.4$ units.  
 C. The model explains exactly $15.4\%$ of the total variation in consumer demand.  

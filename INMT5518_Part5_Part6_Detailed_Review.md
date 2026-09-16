@@ -162,14 +162,20 @@ $$\mathbf{CCC = \text{Days Inventory Outstanding (DIO)} + \text{Days Sales Outst
 
 ### 3. Inventory Turnover (IT) ⭐⭐⭐ (High-Yield Problem)
 Measures the velocity at which inventory is sold and replaced over a year:
+
 $$\mathbf{Inventory\ Turnover = \frac{\text{Cost of Goods Sold (COGS)}}{\text{Value of Average Inventory}}}$$
+
 - **Managerial Goal**: **The higher the turnover ratio, the better**, indicating efficient inventory utilization and lower capital lockup.
 - **The YouRace Company Benchmark Case (Slide 11)**:
-  - *2024 Baseline*: $\text{COGS} = \$3,000,000$; $\text{Average Inventory} = \$250,000$.
-    $$\text{Inventory Turnover (2024)} = \frac{\$3,000,000}{\$250,000} = \mathbf{12}$$
-  - *2025 Post-JIT Implementation*: Firm adopts Just-in-Time principles. Business expands to $\text{COGS} = \$4,500,000$, while average inventory rises marginally to $\$300,000$.
-    $$\text{Inventory Turnover (2025)} = \frac{\$4,500,000}{\$300,000} = \mathbf{15}$$
-  - *Operational Takeaway*: IT increased from 12 to 15, confirming substantial improvements in inventory velocity and working capital efficiency.
+  - **2024 Baseline**: Cost of Goods Sold ($\text{COGS}$) is \$3,000,000; Average Inventory is \$250,000.
+
+    $$\text{Inventory Turnover (2024)} = \frac{3,000,000}{250,000} = \mathbf{12}$$
+
+  - **2025 Post-JIT Implementation**: Firm adopts Just-in-Time principles. Business expands to $\text{COGS}$ of \$4,500,000, while average inventory is maintained at \$300,000.
+
+    $$\text{Inventory Turnover (2025)} = \frac{4,500,000}{300,000} = \mathbf{15}$$
+
+  - **Operational Takeaway**: IT increased from 12 to 15, confirming substantial improvements in inventory velocity and working capital efficiency.
 
 ### 4. Lead Time & Freight Cost per Unit
 - **Lead Time (提前期)**: Total elapsed time from purchase order placement until final goods receipt and acceptance ($\text{Time of Order Placement to Receipt}$).
@@ -541,14 +547,20 @@ D. 3-Axis Stacked Bar Graph
 - **Correct Answer**: **C**
 - **Syllabus Reference**: Section 2.2 / Week 6 Slide 11 / The YouRace Problem
 - **Analytical Rationale**:  
-  Slide 11 presents the identical problem:
-  - $\text{Inventory Turnover (2024)} = \frac{\$3,000,000}{\$250,000} = 12$
-  - $\text{Inventory Turnover (2025)} = \frac{\$4,500,000}{\$300,000} = 15$
-  The turnover ratio increased from 12 to 15. Because a higher inventory turnover indicates faster stock depletion and superior capital efficiency, inventory operational performance improved.
-- **【中文解析】**: 课件第 11 页 YouRace 原题重现：
-  - 2024 年周转率 $= 3,000,000 / 250,000 = 12$；
-  - 2025 年周转率 $= 4,500,000 / 300,000 = 15$。  
-  周转率由 12 提升至 15，周转率数值越高越好，代表 JIT 实施后库存资产运营效率显著提升。故选 C。
+  - **英文解析**: Slide 11 presents the identical problem:
+
+    $$\text{Inventory Turnover (2024)} = \frac{3,000,000}{250,000} = 12$$
+
+    $$\text{Inventory Turnover (2025)} = \frac{4,500,000}{300,000} = 15$$
+
+    The turnover ratio increased from 12 to 15. Because a higher inventory turnover indicates faster stock depletion and superior capital efficiency, inventory operational performance improved.
+  - **中文解析**: 课件第 11 页 YouRace 原题重现：
+
+    $$\text{2024 年周转率} = \frac{3,000,000}{250,000} = 12$$
+
+    $$\text{2025 年周转率} = \frac{4,500,000}{300,000} = 15$$
+
+    周转率由 12 提升至 15，周转率数值越高越好，代表 JIT 实施后库存资产运营效率显著提升。故选 C。
 
 ### Question 14
 - **Correct Answer**: **B**

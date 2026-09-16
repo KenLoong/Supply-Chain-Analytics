@@ -597,16 +597,16 @@ D. Switching all transport modes from express motor freight to slow marine shipp
 - **Analytical Rationale**:  
   Calculate both annual holding and ordering costs using the optimal order quantity ($Q = 632.45\text{ units}$):
 
-  $$\text{Annual Holding Cost} = \left(\frac{Q}{2}\right) \times H = \left(\frac{632.45}{2}\right) \times 4 = 316.23 \times 4 \approx \$1,264.91$$
+  $$\text{Annual Holding Cost} = \left(\frac{Q}{2}\right) \times H = \left(\frac{632.45}{2}\right) \times 4 = 316.23 \times 4 \approx 1,264.91$$
 
-  $$\text{Annual Ordering Cost} = \left(\frac{D}{Q}\right) \times S = \left(\frac{16,000}{632.45}\right) \times 50 = 25.30 \times 50 \approx \$1,264.91$$
+  $$\text{Annual Ordering Cost} = \left(\frac{D}{Q}\right) \times S = \left(\frac{16,000}{632.45}\right) \times 50 = 25.30 \times 50 \approx 1,264.91$$
 
   - *Core Principle*: At the exact EOQ, **Annual Holding Cost strictly equals Annual Ordering Cost** (both are approximately \$1,265)!
 - **【中文解析】**: 核心规律考查：在 EOQ 最优订货批量处，**年持有成本必定精确等于年订货成本**。
 
-  $$\text{年持有成本} = \left(\frac{Q}{2}\right) \times H = \left(\frac{632.45}{2}\right) \times 4 \approx \$1,264.91$$
+  $$\text{年持有成本} = \left(\frac{Q}{2}\right) \times H = \left(\frac{632.45}{2}\right) \times 4 \approx 1,264.91$$
 
-  $$\text{年订货成本} = \left(\frac{D}{Q}\right) \times S = \left(\frac{16,000}{632.45}\right) \times 50 \approx \$1,264.91$$
+  $$\text{年订货成本} = \left(\frac{D}{Q}\right) \times S = \left(\frac{16,000}{632.45}\right) \times 50 \approx 1,264.91$$
 
   计算结果均约为 \$1,265，二者精确相等。故选 A。
 
